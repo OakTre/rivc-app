@@ -6,16 +6,23 @@ header.header
     Nav.header__nav(:navItems="navItems")
     Button.header__btn
       | Связаться с нами
+    button.header__burger-btn(aria-label="Открыть меню" v-on:click="handleMenu")
+      span
+      span
+      span
+  Menu(:openMenu="openMenu" @close="closeMenu")
 </template>
 
 <script>
 import Nav from '@/components/UI/Nav'
 import Button from '@/components/UI/Button'
+import Menu from '@/components/Menu'
 
 export default {
   components: {
     Nav,
-    Button
+    Button,
+    Menu
   },
   data () {
     return {
@@ -23,13 +30,24 @@ export default {
         { link: '/', name: 'О компании' },
         { link: '/', name: 'Проекты' },
         { link: '/', name: 'Контакты' }
-      ]
+      ],
+      openMenu: false
+    }
+  },
+  methods: {
+    handleMenu () {
+      this.openMenu = true
+    },
+    closeMenu (openMenu) {
+      this.openMenu = openMenu
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/global/helpers/media';
+
 .header {
   position: fixed;
   top: 0;
@@ -49,10 +67,46 @@ export default {
 
   &__nav {
     margin-left: auto;
+
+    @include mq(md) {
+      display: none;
+    }
   }
 
   &__btn {
     margin-left: 7rem;
+
+    @include mq(md) {
+      display: none;
+    }
+  }
+
+  &__burger-btn {
+    margin-left: auto;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 0.2rem;
+      background-color: var(--color-white);
+      flex-shrink: 0;
+
+      margin-bottom: 0.4rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__logo {
+    max-width: 13rem;
   }
 }
 </style>

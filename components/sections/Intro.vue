@@ -1,17 +1,59 @@
 <template lang="pug">
   section.intro
-    video.intro__bg-vid(playsinline muted autoplay loop src="@/assets/includes/vid.mp4")
+    h1.visually-hidden РИВЦ – центр притяжения цифровых технологий в АПК
+    video.intro__bg-vid(
+      playsinline muted autoplay loop
+      src="@/assets/includes/vid.mp4"
+      v-if="mobile"
+    )
+    .intro__mobile(v-else)
+      ._layer
+      .site-container
+        .intro__mobile-heading
+          img(src='@/assets/img/mob-text.svg' alt="alt")
+
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      mobile: false
+    }
+  },
+  beforeMount () {
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
+  },
+  methods: {
+    onResize () {
+      if (window.innerWidth > 960) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/global/helpers/media';
+
   .intro {
     position: relative;
-    height: calc(97vh - var(--header-height));
+    height: calc(100vh - var(--header-height));
     background-color: var(--color-dark-blue);
+
+    @include mq(md) {
+      height: 62rem;
+      background: url("~@/assets/img/intro-bg.svg"), var(--color-bg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: left bottom;
+    }
 
     &__bg-vid {
       position: absolute;
@@ -20,6 +62,47 @@ export default {}
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    &__mobile {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding-top: 13.8rem;
+
+      ._layer {
+        position: absolute;
+        top: 20%;
+        left: 40%;
+        z-index: -1;
+        width: 100%;
+        height: 90rem;
+        background-image: url('~@/assets/img/intro-bg-blur.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        -webkit-backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        -webkit-transform: translate3d(0, 0, 0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000;
+        transform: translate3d(0, 0, 0);
+        transform: translateZ(0);
+        transform: translate(-50%, -50%);
+        filter: blur(180px);
+      }
+
+      .site-container {
+        height: 100%;
+      }
+    }
+
+    &__mobile-heading {
+      img {
+        width: 51%;
+        height: auto;
+      }
     }
   }
 </style>

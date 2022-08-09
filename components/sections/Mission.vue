@@ -1,7 +1,7 @@
 <template lang="pug">
 section.section.mission
   ._layer
-  .site-container.mission__container
+  .site-container.mission__container.site-top-line
     ul.mission__list.grid-container
       li.mission__item
         .mission__item-inner
@@ -34,6 +34,8 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/global/helpers/media';
+
 .mission {
   position: relative;
 
@@ -58,27 +60,12 @@ export default {}
     filter: blur(210px);
   }
 
-  &__container {
-    position: relative;
-    padding-top: 6.5rem;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 38.3rem;
-      height: 0.1rem;
-      background: var(--gradient-main);
-      content: "";
-    }
-  }
-
   &__item {
     position: relative;
     grid-column: 6 span;
     border-radius: 1.2rem;
     background: var(--gradient-main);
-    padding: 0.1rem;
+    padding: 1px;
     min-height: 26.7rem;
     display: flex;
     flex-direction: column;
@@ -113,6 +100,21 @@ export default {}
         background-color: var(--color-white);
         content: "";
       }
+
+      @include mq(lg) {
+        padding: 3.3rem 0 3.3rem 3.3rem;
+      }
+
+      @include mq(md) {
+        flex-direction: column;
+        justify-content: stretch;
+        align-items: stretch;
+        padding: 3.2rem;
+
+        &::before {
+          display: none;
+        }
+      }
     }
   }
 
@@ -142,6 +144,10 @@ export default {}
     height: 32.3rem;
     width: 57.5rem;
     object-fit: cover;
+
+    @include mq(md) {
+      width: 100%;
+    }
   }
 
   &__item-block {
@@ -151,8 +157,36 @@ export default {}
       margin-bottom: 1.5rem;
       max-width: 59.7rem;
 
+      @include mq(lg) {
+        margin-right: 4rem;
+      }
+
+      @include mq(md) {
+        max-width: 100%;
+        margin-right: 0;
+      }
+
       &:nth-last-of-type(1) {
         margin-bottom: 0;
+      }
+    }
+
+    @include mq(md) {
+      position: relative;
+
+      &:nth-child(2) {
+        padding-top: 1.2rem;
+        margin-top: 3.8rem;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 0.1rem;
+          background-color: var(--color-white);
+          content: ""
+        };
       }
     }
   }
@@ -166,6 +200,11 @@ export default {}
     background-color: var(--color-white);
     border-radius: 50%;
     transform: translateY(-50%);
+
+    @include mq(md) {
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     &::before {
       position: absolute;

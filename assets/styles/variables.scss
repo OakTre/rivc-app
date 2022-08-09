@@ -27,10 +27,18 @@
   --font-m: 400 1.8rem/2.2rem var(--main-ff);
   --font-s: 600 1.6rem/2rem var(--main-ff);
   --font-xs: 500 1.4rem/2.4rem var(--main-ff);
+  --font-l-mobile: 700 2.4rem/2.8rem var(--main-ff);
+
 
   // etc
   --transition: 200ms;
   --header-height: 9.3rem;
   --grid-offset: 3.2rem;
-  --content-offset: 40px;
+  --content-padding: 40px;
+}
+
+@media screen and (max-width: 992px) {
+  :root {
+    --header-height: 7rem;
+  }
 }

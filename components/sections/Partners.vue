@@ -1,6 +1,6 @@
 <template lang="pug">
 section.partners.section
-  .site-container.partners__container
+  .site-container.partners__container.site-top-line
     h2.site-heading.partners__heading Наши партнеры
     ul.partners__list.grid-container
       li.partners__item(v-for="item in partnersList", :key="item.id")
@@ -28,25 +28,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/global/helpers/media';
+
 .partners {
-  &__container {
-    position: relative;
-    padding-top: 6.5rem;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 38.3rem;
-      height: 0.1rem;
-      background: var(--gradient-main);
-      content: "";
-    }
-  }
-
   &__item {
     grid-column: 3 span;
     position: relative;
+
+    @include mq(md) {
+      grid-column: 6 span;
+    }
   }
 
   &__link {

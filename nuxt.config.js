@@ -1,5 +1,4 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'РИВЦ',
     htmlAttrs: {
@@ -8,7 +7,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'центр притяжения цифровых технологий в АПК' },
+      { hid: 'description', name: 'description', content: 'Центр притяжения цифровых технологий в АПК' },
       { name: 'msapplication-TileColor', content: '#171A3D' },
       { name: 'theme-color', content: '#171A3D' }
     ],

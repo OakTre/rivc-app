@@ -20,6 +20,10 @@ html {
     font-size: 9px;
   }
 
+  @include mq(custom, max, 1366) {
+    font-size: 8px;
+  }
+
   @include mq(lg) {
     font-size: 8px;
   }
@@ -234,10 +238,38 @@ select:-webkit-autofill:focus {
 
 .section {
   margin-bottom: 26rem;
+
+  @include mq(lg) {
+    margin-bottom: 18rem;
+  }
+
+  @include mq(md) {
+    margin-bottom: 15rem;
+  }
 }
 
 .site-heading {
   font: var(--font-xl);
   color: var(--color-blue);
   margin-bottom: 5.5rem;
+}
+
+
+.site-top-line {
+  padding-top: 6.5rem;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: var(--content-padding);
+    width: 38.3rem;
+    height: 1px;
+    background: linear-gradient(90deg, #a82f93 0%, #2966ff 100%);
+    content: "";
+
+    @include mq(md) {
+      width: calc(100% - (var(--content-padding) * 2));
+    }
+  }
 }

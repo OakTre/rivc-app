@@ -70,10 +70,10 @@ export default {
     &::before {
       position: absolute;
       top: 0;
-      left: 0;
+      left: var(--content-padding);
       max-width: 33.5rem;
       width: 100%;
-      height: 0.1rem;
+      height: 1px;
       background: var(--gradient-bg);
       content: "";
     }

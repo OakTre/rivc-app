@@ -1,6 +1,6 @@
 <template lang="pug">
 section.section.projects
-  .site-container.projects__container
+  .site-container.projects__container.site-top-line
     h2.site-heading Проекты
     ul.projects__list.grid-container
       li.projects__item
@@ -18,23 +18,9 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/global/helpers/media';
+
 .projects {
-
-  &__container {
-    padding-top: 6.5rem;
-    position: relative;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 38.3rem;
-      height: 0.1rem;
-      background: linear-gradient(90deg, #a82f93 0%, #2966ff 100%);
-      content: "";
-    }
-  }
-
   &__list {
   }
 
@@ -79,11 +65,20 @@ export default {}
         text-transform: uppercase;
       }
     }
+
+    @include mq(md) {
+      padding: 3.2rem;
+      height: 20rem;
+    }
   }
 
   &__item-headding {
     font: var(--font-l);
     color: var(--color-white);
+
+    @include mq(md) {
+      font: var(--font-l-mobile);
+    }
   }
 }
 </style>

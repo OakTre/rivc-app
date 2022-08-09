@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/global/helpers/media';
+
   .footer {
     padding: 7.2rem 0;
     border-top: 1px solid var(--color-dark-blue2);
@@ -38,10 +40,20 @@ export default {
       &:hover {
         text-decoration: none;
       }
+
+      @include mq(md) {
+        &:nth-child(1) {
+          display: none;
+        }
+      }
     }
 
     &__btn {
       margin-left: auto;
+
+      @include mq(md) {
+        display: none;
+      }
     }
   }
 </style>

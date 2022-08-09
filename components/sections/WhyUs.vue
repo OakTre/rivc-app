@@ -1,6 +1,6 @@
 <template lang="pug">
 section.section.why-us
-  .site-container.why-us__container
+  .site-container.why-us__container.site-top-line
     h2.why-us__heading.site-heading Почему РИВЦ
     ul.why-us__list.grid-container
       li.why-us__item(v-for="item in whyList" :key="item.id")
@@ -29,31 +29,22 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '~@/assets/styles/global/helpers/media';
+
 .why-us {
-  &__container {
-    position: relative;
-    padding-top: 6.5rem;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      max-width: 33.5rem;
-      width: 100%;
-      height: 0.1rem;
-      background: var(--gradient-bg);
-      content: "";
-    }
-  }
-
   &__item {
     grid-column: 6 span;
     display: flex;
     flex-direction: column;
     background: var(--gradient-main);
-    padding: 0.1rem;
+    padding: 1px;
     border-radius: 1.2rem;
     min-height: 44.5rem;
+
+    @include mq(md) {
+      grid-column: 12 span;
+      min-height: 33.5rem;
+    }
 
     &:nth-child(2) {
       background: var(--gradient-bg);

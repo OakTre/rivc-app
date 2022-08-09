@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/global/helpers/media';
+
 .advantages {
   position: relative;
   z-index: 1;
@@ -35,6 +37,15 @@ export default {
     border-radius: 1.2rem;
     background-color: var(--color-dark-blue);
     border: 1px solid var(--color-dark-blue2);
+
+    @include mq(lg) {
+      padding: 3.2rem;
+    }
+
+    @include mq(md) {
+      grid-column: 12 span;
+      display: flex;
+    }
 
     p {
       font: var(--font-m);
@@ -60,6 +71,11 @@ export default {
       width: 5.7rem;
       height: 5.7rem;
       object-fit: cover;
+    }
+
+    @include mq(md) {
+      margin-bottom: 0;
+      margin-right: 3.2rem;
     }
   }
 }
