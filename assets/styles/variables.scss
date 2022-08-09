@@ -1,0 +1,36 @@
+:root {
+  // Typography
+  --main-ff: "Montserrat", sans-serif;
+
+  // colors
+  --color-dark: #11132D;
+  --color-dark-blue: #171A3D;
+  --color-dark-blue2: #3B3E62;
+  --color-blue: #2966FF;
+  --color-blue-btn: #374CE0;
+  --color-purple-btn: #792CA9;
+  --color-pink-btn: #9E2D8F;
+  --color-light-blue-btn: #2E84D3;
+  --color-white: #fff;
+  --color-bg: var(--color-dark);
+
+  --gradient-main: linear-gradient(90deg, #A82F93 0%, #2966FF 100%);
+  --gradient-argo: linear-gradient(90deg, #2B1067 0%, #384FE9 100%);
+  --gradient-kval: linear-gradient(90deg, #471374 0%, #A62F93 100%);
+  --gradient-avto: linear-gradient(90deg, #461B86 0%, #9129D2 100%);
+  --gradient-kdw: linear-gradient(90deg, #0F2E6C 0%, #2E85D5 100%);
+  --gradient-bg: linear-gradient(180deg, #491C87 -12.76%, #2966FF 224.49%);
+
+  // fonts
+  --font-xl: 800 4.5rem/5.5rem var(--main-ff);
+  --font-l: 700 3rem/3.7rem var(--main-ff);
+  --font-m: 400 1.8rem/2.2rem var(--main-ff);
+  --font-s: 600 1.6rem/2rem var(--main-ff);
+  --font-xs: 500 1.4rem/2.4rem var(--main-ff);
+
+  // etc
+  --transition: 200ms;
+  --header-height: 9.3rem;
+  --grid-offset: 3.2rem;
+  --content-offset: 40px;
+}
