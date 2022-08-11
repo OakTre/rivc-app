@@ -1,38 +1,44 @@
 <template lang="pug">
 form.form(@submit.prevent="onSubmit")
   .form__container
-    label.form__label
-      input.form__input(
-        name="name"
-        placeholder="Ваше имя"
-        v-model="form.name"
-        :class="$v.form.name.$error ? 'is-error' : ''")
-      span.form__label-error(v-if="$v.$error")
-        | {{$v.$error ? nameError[0] : []}}
-    label.form__label
-      input.form__input(
-        name="tel"
-        v-mask="'+7 (###) ###-##-##'"
-        placeholder="Ваш телефон"
-        :class="$v.form.tel.$error ? 'is-error' : ''"
-        v-model="form.tel"
-      )
-      span.form__label-error(v-if="$v.$error")
-        | {{$v.$error ? telErrors[0] : []}}
-    label.form__label
-      input.form__input(
-        name="email"
-        placeholder="Ваш e-mail"
-        :class="$v.form.email.$error ? 'is-error' : ''"
-        v-model="form.email"
-      )
-      span.form__label-error(v-if="$v.$error")
-        | {{$v.$error ? emailErrors[0] : []}}
-    label.form__label.form__label--big
-      textarea.form__textarea(name="text" placeholder="Сообщение")
-    Button.form__btn._mobile.button--secondary
-      | Отправить
-  Button.form__btn.button--secondary
+    .succes(:class="success ? 'isShown' : ''")
+      span.succes__heading
+        | Спасибо за запрос!
+      p.succes__text
+        | Мы свяжемся с вами как можно скорее
+    .initial(:class="success ? 'isHidden' : ''")
+      label.form__label
+        input.form__input(
+          name="name"
+          placeholder="Ваше имя"
+          v-model="form.name"
+          :class="$v.form.name.$error ? 'is-error' : ''")
+        span.form__label-error(v-if="$v.$error")
+          | {{$v.$error ? nameError[0] : []}}
+      label.form__label
+        input.form__input(
+          name="tel"
+          v-mask="'+7 (###) ###-##-##'"
+          placeholder="Ваш телефон"
+          :class="$v.form.tel.$error ? 'is-error' : ''"
+          v-model="form.tel"
+        )
+        span.form__label-error(v-if="$v.$error")
+          | {{$v.$error ? telErrors[0] : []}}
+      label.form__label
+        input.form__input(
+          name="email"
+          placeholder="Ваш e-mail"
+          :class="$v.form.email.$error ? 'is-error' : ''"
+          v-model="form.email"
+        )
+        span.form__label-error(v-if="$v.$error")
+          | {{$v.$error ? emailErrors[0] : []}}
+      label.form__label.form__label--big
+        textarea.form__textarea(name="text" placeholder="Сообщение")
+      Button.form__btn._mobile.button--secondary(:disabled="success ? true : false")
+        | Отправить
+  Button.form__btn.button--secondary(:disabled="success ? true : false")
     | Отправить
 </template>
 
@@ -56,7 +62,8 @@ export default {
         name: '',
         email: '',
         tel: ''
-      }
+      },
+      success: false
     }
   },
   validations: {
@@ -101,6 +108,7 @@ export default {
 
       if (!this.$v.form.$error) {
         console.log(JSON.stringify(this.form))
+        this.success = true
       }
     }
   }
@@ -120,6 +128,7 @@ export default {
     background: var(--gradient-argo);
     padding: 6rem;
     border-radius: 1.2rem;
+    min-height: 36rem;
 
     @include mq(sm) {
       padding: 6.6rem 2.3rem;
@@ -182,6 +191,33 @@ export default {
     color: red;
     display: block;
     font: var(--font-xs);
+  }
+}
+
+.initial {
+  &.isHidden {
+    display: none !important;
+  }
+}
+
+.succes {
+  display: none;
+
+  &.isShown {
+    display: block;
+  }
+
+  &__heading {
+    display: block;
+    font: var(--font-m);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &__text {
+    font: var(--font-m);
+    text-align: center;
   }
 }
 </style>

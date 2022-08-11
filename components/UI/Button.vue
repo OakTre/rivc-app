@@ -19,6 +19,11 @@ export default {
   text-align: center;
   transition: background-color var(--transition), border-color var(--transition);
 
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   &__txt {
     display: block;
     font: var(--font-s);
