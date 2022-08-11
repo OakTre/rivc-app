@@ -27,7 +27,8 @@ export default {
 
   plugins: [
     '@plugins/mixins/getDynamicFile.js',
-    '@plugins/mixins/mask.js'
+    '@plugins/mixins/mask.js',
+    '@plugins/ScrollLock.js'
   ],
 
   components: true,

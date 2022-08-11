@@ -221,6 +221,11 @@ select:-webkit-autofill:focus {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--grid-offset);
+
+  @include mq(sm) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.6rem 0;
+  }
 }
 
 .disable-scroll {
@@ -246,12 +251,21 @@ select:-webkit-autofill:focus {
   @include mq(md) {
     margin-bottom: 15rem;
   }
+
+  @include mq(sm) {
+    margin-bottom: 11rem;
+  }
 }
 
 .site-heading {
   font: var(--font-xl);
   color: var(--color-blue);
   margin-bottom: 5.5rem;
+
+  @include mq(sm) {
+    font: var(--font-heading-mobile);
+    margin-bottom: 2.6rem;
+  }
 }
 
 
@@ -271,5 +285,9 @@ select:-webkit-autofill:focus {
     @include mq(md) {
       width: calc(100% - (var(--content-padding) * 2));
     }
+  }
+
+  @include mq(sm) {
+    padding-top: 1rem;
   }
 }

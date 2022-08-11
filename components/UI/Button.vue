@@ -1,11 +1,13 @@
 <template lang="pug">
-button.button
-  span.button__txt
-    slot
+  button.button
+    span.button__txt
+      slot
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'Button'
+}
 </script>
 
 <style lang="scss">

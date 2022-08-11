@@ -1,7 +1,7 @@
 <template lang="pug">
 section.section.contact-us
   ._layer
-  .site-container.contact-us__container
+  .site-container.contact-us__container.site-top-line
     h2.site-heading.contact-us__heading
       | Обратная связь
     .grid-container
@@ -39,6 +39,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '~@/assets/styles/global/helpers/media';
+
 .contact-us {
   position: relative;
 
@@ -61,26 +63,18 @@ export default {
     transform: translate3d(0, 0, 0);
     transform: translateZ(0);
     filter: blur(210px);
-  }
 
-  &__container {
-    position: relative;
-    padding-top: 6.5rem;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: var(--content-padding);
-      max-width: 33.5rem;
-      width: 100%;
-      height: 1px;
-      background: var(--gradient-bg);
-      content: "";
+    @include mq(sm) {
+      display: none;
     }
   }
 
   &__block {
     grid-column: 6 span;
+
+    @include mq(sm) {
+      grid-column: 4 span;
+    }
 
     &:nth-child(1) {
       display: flex;
@@ -91,6 +85,11 @@ export default {
   &__legend {
     font: var(--font-l);
     margin-bottom: 3.2rem;
+
+    @include mq(sm) {
+      font: var(--font-m-mobile);
+      margin-bottom: 1.7rem;
+    }
   }
 
   &__links {
@@ -99,12 +98,26 @@ export default {
     align-items: flex-start;
     gap: 3.1rem;
     margin-bottom: 2rem;
+
+    @include mq(sm) {
+      gap: 1.4rem;
+      margin-bottom: 2.5rem;
+    }
   }
 
   &__link {
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    @include mq(sm) {
+      font: var(--font-xs);
+
+      svg {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
 
     &:hover {
       text-decoration: underline;

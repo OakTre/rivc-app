@@ -46,6 +46,12 @@ export default {
       min-height: 33.5rem;
     }
 
+    @include mq(sm) {
+      border-radius: 0.8rem;
+      min-height: 0;
+      grid-column: 4 span;
+    }
+
     &:nth-child(2) {
       background: var(--gradient-bg);
 
@@ -86,16 +92,30 @@ export default {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom right;
+
+    @include mq(sm) {
+      border-radius: 0.8rem;
+      padding: 3.3rem 2rem 16rem 2rem;
+    }
   }
 
   &__item-heading {
     font: var(--font-l);
     margin-bottom: 2.5rem;
+
+    @include mq(sm) {
+      font: var(--font-m-mobile);
+      margin-bottom: 1.4rem;
+    }
   }
 
   &__item-text {
     font: var(--font-m);
     max-width: 59rem;
+
+    @include mq(sm) {
+      font: var(--font-xs);
+    }
 
     p {
       margin-bottom: 1rem;

@@ -38,6 +38,10 @@ export default {
     @include mq(md) {
       grid-column: 6 span;
     }
+
+    @include mq(sm) {
+      grid-column: 4 span;
+    }
   }
 
   &__link {
@@ -53,6 +57,14 @@ export default {
       width: 17.6rem;
       height: 5rem;
       object-fit: cover;
+    }
+
+    @include mq(sm) {
+      height: 9.8rem;
+
+      img {
+        width: auto;
+      }
     }
   }
 }

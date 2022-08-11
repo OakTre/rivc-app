@@ -30,6 +30,8 @@ form.form(@submit.prevent="onSubmit")
         | {{$v.$error ? emailErrors[0] : []}}
     label.form__label.form__label--big
       textarea.form__textarea(name="text" placeholder="Сообщение")
+    Button.form__btn._mobile.button--secondary
+      | Отправить
   Button.form__btn.button--secondary
     | Отправить
 </template>
@@ -107,6 +109,7 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/styles/global/helpers/mixins.scss";
+@import '~@/assets/styles/global/helpers/media';
 
 .form {
   width: 100%;
@@ -117,6 +120,10 @@ export default {
     background: var(--gradient-argo);
     padding: 6rem;
     border-radius: 1.2rem;
+
+    @include mq(sm) {
+      padding: 6.6rem 2.3rem;
+    }
   }
 
   &__label {
@@ -155,6 +162,20 @@ export default {
     align-self: flex-end;
     margin-top: 4.4rem;
     padding: 1.8rem 6.1rem;
+
+     @include mq(sm) {
+      display: none;
+     }
+
+    &._mobile {
+      display: none;
+
+      @include mq(sm) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+    }
   }
 
   &__label-error {

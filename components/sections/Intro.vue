@@ -1,16 +1,16 @@
 <template lang="pug">
   section.intro
     h1.visually-hidden РИВЦ – центр притяжения цифровых технологий в АПК
-    video.intro__bg-vid(
-      playsinline muted autoplay loop
-      src="@/assets/includes/vid.mp4"
-      v-if="mobile"
-    )
-    .intro__mobile(v-else)
+    .intro__mobile(v-if="mobile")
       ._layer
       .site-container
         .intro__mobile-heading
           img(src='@/assets/img/mob-text.svg' alt="alt")
+    video.intro__bg-vid(
+      playsinline muted autoplay loop
+      src="@/assets/includes/vid.mp4"
+      v-else
+    )
 
 </template>
 
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     onResize () {
-      if (window.innerWidth > 960) {
+      if (window.matchMedia('(max-width: 992px)').matches) {
         this.mobile = true
       } else {
         this.mobile = false
@@ -52,7 +52,7 @@ export default {
       background: url("~@/assets/img/intro-bg.svg"), var(--color-bg);
       background-repeat: no-repeat;
       background-size: cover;
-      background-position: left bottom;
+      background-position: center;
     }
 
     &__bg-vid {
@@ -102,6 +102,10 @@ export default {
       img {
         width: 51%;
         height: auto;
+
+        @include mq(sm) {
+          width: 87%;
+        }
       }
     }
   }

@@ -17,6 +17,8 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/global/helpers/media';
+
   .socials {
     display: flex;
     align-items: center;
@@ -35,6 +37,16 @@ export default {}
       background-color: var(--color-bg);
       border-radius: 0.5rem;
       border: 1px solid var(--color-dark-blue2);
+
+      @include mq(sm) {
+        width: 4rem;
+        height: 3rem;
+
+        svg {
+          width: 1.5rem;
+          height: 1.4rem;
+        }
+      }
 
       svg {
         width: 1.8rem;

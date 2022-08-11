@@ -33,6 +33,15 @@ export default {
         font: var(--font-xl);
         color: var(--color-blue);
       }
+
+      @include mq(sm) {
+        font: var(--font-m-mobile);
+        margin-bottom: 4rem;
+
+        span {
+          font: var(--font-heading-mobile);
+        }
+      }
     }
 
     &__img {
@@ -45,6 +54,21 @@ export default {
 
       @include mq(md) {
         width: 34rem;
+      }
+
+      @include mq(sm) {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin-bottom: 4rem;
+      }
+    }
+
+    &__btn {
+      @include mq(sm) {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
       }
     }
   }

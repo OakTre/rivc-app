@@ -47,12 +47,23 @@ export default {
       display: flex;
     }
 
+    @include mq(sm) {
+      grid-column: 4 span;
+      flex-direction: column;
+      padding: 3.7rem 2.3rem;
+      border-radius: 0.8rem;
+    }
+
     p {
       font: var(--font-m);
       max-width: 25.6rem;
 
-      span {
+      b, strong {
         font-weight: 700;
+      }
+
+      @include mq(sm) {
+        font: var(--font-xs);
       }
     }
   }
@@ -76,6 +87,19 @@ export default {
     @include mq(md) {
       margin-bottom: 0;
       margin-right: 3.2rem;
+    }
+
+    @include mq(sm) {
+      width: 7.1rem;
+      height: 5.1rem;
+      margin: 0;
+      margin-bottom: 1.7rem;
+      border-radius: 0.6rem;
+
+      img {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
     }
   }
 }

@@ -4,8 +4,9 @@ header.header
     a.header__logo(href="/")
       img(src="@/assets/img/logo.svg", alt="alt")
     Nav.header__nav(:navItems="navItems")
-    Button.header__btn
-      | Связаться с нами
+    button.button.header__btn(@click="openModal")
+      span.button__text
+        | Связаться с нами
     button.header__burger-btn(aria-label="Открыть меню" v-on:click="handleMenu")
       span
       span
@@ -14,6 +15,7 @@ header.header
 </template>
 
 <script>
+
 import Nav from '@/components/UI/Nav'
 import Button from '@/components/UI/Button'
 import Menu from '@/components/Menu'
@@ -40,6 +42,9 @@ export default {
     },
     closeMenu (openMenu) {
       this.openMenu = openMenu
+    },
+    openModal (e) {
+      this.$store.commit('SET_MODAL', true)
     }
   }
 }
@@ -85,7 +90,7 @@ export default {
     margin-left: auto;
     width: 4rem;
     height: 4rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -102,6 +107,10 @@ export default {
       &:last-child {
         margin-bottom: 0;
       }
+    }
+
+    @include mq(md) {
+      display: flex;
     }
   }
 

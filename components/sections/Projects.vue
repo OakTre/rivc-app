@@ -70,6 +70,14 @@ export default {}
       padding: 3.2rem;
       height: 20rem;
     }
+
+    @include mq(sm) {
+      grid-column: 4 span;
+      height: 18.7rem;
+      justify-content: stretch !important;
+      text-align: left !important;
+      padding: 2.3rem;
+    }
   }
 
   &__item-headding {
@@ -78,6 +86,10 @@ export default {}
 
     @include mq(md) {
       font: var(--font-l-mobile);
+    }
+
+    @include mq(sm) {
+      font: var(--font-m-mobile);
     }
   }
 }
