@@ -22,18 +22,10 @@ export default {
     }
   },
   beforeMount () {
-    window.addEventListener('resize', this.onResize)
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.onResize)
-  },
-  methods: {
-    onResize () {
-      if (window.matchMedia('(max-width: 992px)').matches) {
-        this.mobile = true
-      } else {
-        this.mobile = false
-      }
+    if (window.matchMedia('(max-width: 992px)').matches) {
+      this.mobile = true
+    } else {
+      this.mobile = false
     }
   }
 }

@@ -3,7 +3,7 @@
     .site-container.footer__container
       p.footer__legend АО РИВЦ
       p.footer__legend._underline Все права защищены
-      a(href="/" class="footer__legend _underline") Политика конфиденциальности
+      nuxt-link(to="/policy" class="footer__legend _underline") Политика конфиденциальности
       Button.footer__btn
         | Связаться с нами
 </template>

@@ -4,14 +4,13 @@ header.header
     a.header__logo(href="/")
       img(src="@/assets/img/logo.svg", alt="alt")
     Nav.header__nav(:navItems="navItems")
-    button.button.header__btn(@click="openModal")
-      span.button__text
-        | Связаться с нами
-    button.header__burger-btn(aria-label="Открыть меню" v-on:click="handleMenu")
+    Button.button.header__btn(@click.native="openModal")
+      | Связаться с нами
+    button.header__burger-btn(aria-label="Открыть меню" @click="handleMenu")
       span
       span
       span
-  Menu(:openMenu="openMenu" @close="closeMenu")
+  Menu(:openMenu="$store.state.mobileMenu")
 </template>
 
 <script>
@@ -38,12 +37,9 @@ export default {
   },
   methods: {
     handleMenu () {
-      this.openMenu = true
+      this.$store.commit('SET_MENU', true)
     },
-    closeMenu (openMenu) {
-      this.openMenu = openMenu
-    },
-    openModal (e) {
+    openModal () {
       this.$store.commit('SET_MODAL', true)
     }
   }
@@ -51,7 +47,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@/assets/styles/global/helpers/media';
+@import "~@/assets/styles/global/helpers/mixins";
+@import "~@/assets/styles/global/helpers/media";
 
 .header {
   position: fixed;

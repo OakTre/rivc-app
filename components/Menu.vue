@@ -1,7 +1,5 @@
 <template lang="pug">
-.menu(
-  :class="openMenu ? 'is-active' : ''"
-)
+.menu(:class="openMenu ? 'is-active' : ''")
   .site-container.menu__container
     .menu__heading-container
       a.menu__logo(href="/")
@@ -9,13 +7,28 @@
       button.menu__btn(@click="closeMenu")
         span
         span
+    ul.menu__list
+      li.menu__item(@click="closeMenu")
+        nuxt-link.menu__link(:to="{ path: '/', hash: 'company' }") О компании
+      li.menu__item(@click="closeMenu")
+        nuxt-link.menu__link(:to="{ path: '/', hash: 'projects' }") Проекты
+      li.menu__item(@click="closeMenu")
+        nuxt-link.menu__link(:to="{ path: '/', hash: 'contacts' }") Контакты
+    Button.menu__modal-btn(@click.native="openModal")
+      | Связаться с нами
 </template>
 
 <script>
+import Button from '@/components/UI/Button.vue'
+
 export default {
+  components: {
+    Button
+  },
   props: {
     openMenu: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -25,7 +38,10 @@ export default {
   },
   methods: {
     closeMenu () {
-      this.$emit('close', this.closeMen)
+      this.$store.commit('SET_MENU', false)
+    },
+    openModal (e) {
+      this.$store.commit('SET_MODAL', true)
     }
   }
 }
@@ -84,6 +100,19 @@ export default {
         transform: translate(-50%, -50%) rotate(-45deg);
       }
     }
+  }
+
+  &__list {
+    margin-bottom: 5.4rem;
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.8rem;
+  }
+
+  &__link {
+    font: var(--font-s);
   }
 }
 </style>

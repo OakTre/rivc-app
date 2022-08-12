@@ -50,5 +50,8 @@ export default {
     baseURL: '/'
   },
   build: {
+  },
+  server: {
+    port: 8000
   }
 }

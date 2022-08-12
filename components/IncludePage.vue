@@ -5,7 +5,7 @@
         h1.include-page__heading
           | {{ title }}
         nuxt-link(
-          to="/"
+          :to="{ path: '/', hash: 'projects' }"
           class="include-page__back"
         )
       p.include-page__text(

@@ -107,8 +107,11 @@ export default {
       this.$v.form.$touch()
 
       if (!this.$v.form.$error) {
-        console.log(JSON.stringify(this.form))
+        // console.log(JSON.stringify(this.form))
         this.success = true
+        this.name = ''
+        this.email = ''
+        this.tel = ''
       }
     }
   }

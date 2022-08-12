@@ -5,7 +5,9 @@
         | #[span Повышайте]
         | производительность и рентабельность предприятия с нами!
       img(src='@/assets/img/increase/img.svg' alt='Повышайте производительность и рентабельность предприятия с нами!' class="increase__img")
-      Button.increase__btn.button--secondary
+      Button.increase__btn.button--secondary(
+        @click.native="openModal"
+      )
         | Связаться с нами
 </template>
 <script>
@@ -13,6 +15,11 @@ import Button from '@/components/UI/Button'
 export default {
   components: {
     Button
+  },
+  methods: {
+    openModal () {
+      this.$store.commit('SET_MODAL', true)
+    }
   }
 }
 </script>

@@ -2,62 +2,67 @@
   .modal(:class="open ? 'is-active' : ''" @click.stop="closeModal")
     .modal__content(@click.stop v-scroll-lock="open")
       button.modal__close(aria-label="Закрыть модальное окно" @click="closeModal")
-      h3.modal__heading Свяжитесь с нами
-      p.modal__text
-        | Оставьте ваши контактные данные, и мы свяжемся с Вами в ближайшее время
-      form.modal-form(@submit.prevent="onSubmit")
-        label.modal-form__label
-          span.modal-form__name ФИО
-          input.modal-form__input(
-            name="name"
-            placeholder="Иванов Иван Иванович"
-            type="text"
-            v-model="form.name"
-            :class="$v.form.name.$error ? 'is-error' : ''"
-          )
-          span.form__label-error(v-if="$v.$error")
-            | {{$v.$error ? nameError[0] : []}}
-        label.modal-form__label
-          span.modal-form__name Телефон
-          input.modal-form__input(
-            name="tel"
-            placeholder="+7 (ХХХ) ХХХ ХХ ХХ"
-            v-mask="'+7 (###) ###-##-##'"
-            type="text"
-            :class="$v.form.tel.$error ? 'is-error' : ''"
-            v-model="form.tel"
-          )
-          span.form__label-error(v-if="$v.$error")
-            | {{$v.$error ? telErrors[0] : []}}
-        label.modal-form__label
-          span.modal-form__name Почта
-          input.modal-form__input(
-            name="email"
-            placeholder="example@mail.com"
-            type="email"
-            :class="$v.form.email.$error ? 'is-error' : ''"
-            v-model="form.email"
-          )
-          span.form__label-error(v-if="$v.$error")
-            | {{$v.$error ? emailErrors[0] : []}}
-        span.modal-form__legend Выберете предпочтительный способ связи:
-        .modal-form__radio-btns
-          label.modal-form__checkbox
-            input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="WhtasUp" class="visually-hidden")
-            span.modal-form__checkbox-text
-              | Whatsapp
-          label.modal-form__checkbox
-            input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="email" class="visually-hidden")
-            span.modal-form__checkbox-text
-              | Письмо
-          label.modal-form__checkbox
-            input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="call" checked class="visually-hidden")
-            span.modal-form__checkbox-text
-              | Звонок
-          span.form__label-error(v-if="$v.$error")
-            | {{$v.$error ? contactMeThroueErrors[0] : []}}
-        Button.button--secondary.modal-form__btn
-          | Отправить
+      .succes(:class="success ? 'isShown' : ''")
+        h3.modal__heading Спасибо!
+        p.modal__text
+          | Ваша заявка принята!
+      .initial(:class="success ? 'isHidden' : ''")
+        h3.modal__heading Свяжитесь с нами
+        p.modal__text
+          | Оставьте ваши контактные данные, и мы свяжемся с Вами в ближайшее время
+        form.modal-form(@submit.prevent="onSubmit")
+          label.modal-form__label
+            span.modal-form__name ФИО
+            input.modal-form__input(
+              name="name"
+              placeholder="Иванов Иван Иванович"
+              type="text"
+              v-model="form.name"
+              :class="$v.form.name.$error ? 'is-error' : ''"
+            )
+            span.form__label-error(v-if="$v.$error")
+              | {{$v.$error ? nameError[0] : []}}
+          label.modal-form__label
+            span.modal-form__name Телефон
+            input.modal-form__input(
+              name="tel"
+              placeholder="+7 (ХХХ) ХХХ ХХ ХХ"
+              v-mask="'+7 (###) ###-##-##'"
+              type="text"
+              :class="$v.form.tel.$error ? 'is-error' : ''"
+              v-model="form.tel"
+            )
+            span.form__label-error(v-if="$v.$error")
+              | {{$v.$error ? telErrors[0] : []}}
+          label.modal-form__label
+            span.modal-form__name Почта
+            input.modal-form__input(
+              name="email"
+              placeholder="example@mail.com"
+              type="email"
+              :class="$v.form.email.$error ? 'is-error' : ''"
+              v-model="form.email"
+            )
+            span.form__label-error(v-if="$v.$error")
+              | {{$v.$error ? emailErrors[0] : []}}
+          span.modal-form__legend Выберете предпочтительный способ связи:
+          .modal-form__radio-btns
+            label.modal-form__checkbox
+              input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="WhtasUp" class="visually-hidden")
+              span.modal-form__checkbox-text
+                | Whatsapp
+            label.modal-form__checkbox
+              input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="email" class="visually-hidden")
+              span.modal-form__checkbox-text
+                | Письмо
+            label.modal-form__checkbox
+              input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="call" checked class="visually-hidden")
+              span.modal-form__checkbox-text
+                | Звонок
+            span.form__label-error(v-if="$v.$error")
+              | {{$v.$error ? contactMeThroueErrors[0] : []}}
+          Button.button--secondary.modal-form__btn
+            | Отправить
 </template>
 <script>
 import { validationMixin } from 'vuelidate'
@@ -85,7 +90,8 @@ export default {
         email: '',
         tel: '',
         contactMeThroue: ''
-      }
+      },
+      success: false
     }
   },
   validations: {
@@ -135,12 +141,17 @@ export default {
   methods: {
     closeModal () {
       this.$store.commit('SET_MODAL', false)
+      this.success = false
     },
     onSubmit () {
       this.$v.form.$touch()
 
       if (!this.$v.form.$error) {
-        console.log(JSON.stringify(this.form))
+        // console.log(JSON.stringify(this.form))
+        this.success = true
+        this.name = ''
+        this.email = ''
+        this.tel = ''
       }
     }
   }
@@ -149,6 +160,25 @@ export default {
 <style lang="scss" scoped>
   @import '~@/assets/styles/global/helpers/mixins';
   @import '~@/assets/styles/global/helpers/media';
+
+  .initial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.isHidden {
+      display: none !important;
+    }
+  }
+
+  .succes {
+    display: none;
+
+    &.isShown {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
   .modal {
     position: fixed;

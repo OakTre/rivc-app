@@ -1,5 +1,5 @@
 <template lang="pug">
-section.section.projects
+section.section.projects(id="projects")
   .site-container.projects__container.site-top-line
     h2.site-heading Проекты
     ul.projects__list.grid-container

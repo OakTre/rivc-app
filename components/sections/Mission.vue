@@ -22,7 +22,10 @@ section.section.mission(id="company")
           p
             | На сегодняшний день АО «РИВЦ» – двигатель цифровой трансформации агропромышленного комплекса Республики Татарстан.
         .mission__item-block
-          button.mission__item-btn(aria-label="ВОСПРОИЗВЕСТИ видео")
+          button.mission__item-btn(
+            aria-label="ВОСПРОИЗВЕСТИ видео"
+            @click="openModal"
+          )
           img.mission__preview-img(
             src="@/assets/img/mission/preview.jpg",
             alt="Предпросмотр для видео"
@@ -30,7 +33,13 @@ section.section.mission(id="company")
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    openModal () {
+      this.$store.commit('SET_MODAL_VID', true)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
