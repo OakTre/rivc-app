@@ -1,5 +1,5 @@
 <template lang="pug">
-section.section.mission
+section.section.mission(id="company")
   ._layer
   .site-container.mission__container.site-top-line
     ul.mission__list.grid-container

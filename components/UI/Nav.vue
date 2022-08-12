@@ -2,7 +2,9 @@
 nav.nav
   ul.nav__list
     li.nav__item(v-for="item in navItems")
-      a.nav__link(href="") {{ item.name }}
+      nuxt-link.nav__link(
+        :to="{path: '/', hash: item.anchor}"
+      ) {{ item.name }}
 </template>
 <script>
 export default {

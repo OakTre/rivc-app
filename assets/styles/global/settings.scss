@@ -11,9 +11,18 @@
 html {
   font-size: 10px;
   line-height: 1.2;
+  scroll-behavior: smooth;
+
+  @include mq(custom, min, 1920) {
+    font-size: 11px;
+  }
 
   @include mq(custom, min, 1999) {
     font-size: 13px;
+  }
+
+  @include mq(custom, min, 2100) {
+    font-size: 14px;
   }
 
   @include mq(custom, max, 1536) {
@@ -179,8 +188,16 @@ img {
   padding-right: var(--content-padding);
   padding-left: var(--content-padding);
 
+  @include mq(custom, min, 1920) {
+    max-width: 1680px;
+  }
+
   @include mq(custom, min, 1999) {
     max-width: 1920px;
+  }
+
+  @include mq(custom, min, 2100) {
+    max-width: 2000px;
   }
 }
 

@@ -29,9 +29,9 @@ export default {
   data () {
     return {
       navItems: [
-        { link: '/', name: 'О компании' },
-        { link: '/', name: 'Проекты' },
-        { link: '/', name: 'Контакты' }
+        { link: '/', name: 'О компании', anchor: 'company' },
+        { link: '/', name: 'Проекты', anchor: 'projects' },
+        { link: '/', name: 'Контакты', anchor: 'contacts' }
       ],
       openMenu: false
     }

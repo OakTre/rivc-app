@@ -3,13 +3,21 @@ section.section.projects
   .site-container.projects__container.site-top-line
     h2.site-heading Проекты
     ul.projects__list.grid-container
-      li.projects__item
+      nuxt-link.projects__item(
+        to="/agropoliya"
+      )
         h3.projects__item-headding АГРОПОЛИЯ
-      li.projects__item
+      nuxt-link.projects__item(
+        to="/apk"
+      )
         h3.projects__item-headding Программа повышения квалификации
-      li.projects__item
+      nuxt-link.projects__item(
+        to="/shtp"
+      )
         h3.projects__item-headding Программа поддержки автоматизации
-      li.projects__item
+      nuxt-link.projects__item(
+        to="/kdw"
+      )
         h3.projects__item-headding Kazan Digital Week
 </template>
 
