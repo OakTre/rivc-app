@@ -35,7 +35,8 @@ export default {
 
   buildModules: [
     '@nuxtjs/eslint-module',
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/device'
   ],
   modules: [
     '@nuxtjs/axios',

@@ -2,6 +2,10 @@
   .modal( v-if="open" :class="open ? 'is-active' : ''" @click.stop="closeModal")
     .modal__content(@click.stop v-scroll-lock="open")
       button.modal__close(aria-label="Закрыть модальное окно" @click="closeModal")
+      video.modal__vid(
+        playsinline muted autoplay loop
+        src="@/assets/includes/vid2.mp4"
+      )
 </template>
 <script>
 import Button from '@/components/UI/Button'
@@ -53,6 +57,7 @@ export default {
       position: absolute;
       top: 4rem;
       right: 4rem;
+      z-index: 2;
       width: 2.2rem;
       height: 2.2rem;
 
@@ -111,11 +116,18 @@ export default {
       }
 
       @include mq(md) {
-        max-width: 100%;
-        height: 100%;
-        border-radius: 0;
+        height: 90%;
         overflow: auto;
-        padding: 9.1rem 2.2rem;
+        padding: 3.2rem;
+      }
+    }
+
+    &__vid {
+      width: 100%;
+      height: 50rem;
+
+      @include mq(md) {
+        height: 100%;
       }
     }
   }

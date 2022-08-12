@@ -11,6 +11,7 @@ section.include-page
       slot
 
       img.include-page__image(:src="getDynamicFile(img)", :alt="title")
+
       a.button.include-page__btn(
         :href="link",
         target="_blank",

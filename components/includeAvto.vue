@@ -3,7 +3,7 @@
     title="Программа поддержки автоматизации СХТП"
     text="50% софинансирование"
     img="img/avto/laptop.png"
-    link="123"
+    link="https://drive.google.com/file/d/1ErAeIk1toNvUA-H2-Gz10IQz3dTLmMJo/view"
     btnClass="SHTP-section__btn"
     class="SHTP-section"
   )

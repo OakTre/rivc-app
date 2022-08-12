@@ -2,7 +2,7 @@
   IncludePage(
     title="Программа повышения калификации «Цифровая трансформация в АПК»"
     img="img/kval/laptop.png"
-    link="123"
+    link="https://edu.agropoliya.ru/"
     btnClass="apk-section__btn"
     class="apk-section"
   )

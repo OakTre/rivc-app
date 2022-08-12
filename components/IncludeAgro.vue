@@ -3,7 +3,7 @@
     title="ГИС АПК РТ Агрополия"
     text="Единая цифровая экосистема данных АПК Республики Татарстан"
     img="img/agro/laptop.png"
-    link="123"
+    link="https://agropoliya.ru/"
     btnClass="button--secondary"
     class="agro-section"
   )

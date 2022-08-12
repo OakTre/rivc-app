@@ -4,7 +4,9 @@
       p.footer__legend АО РИВЦ
       p.footer__legend._underline Все права защищены
       nuxt-link(to="/policy" class="footer__legend _underline") Политика конфиденциальности
-      Button.footer__btn
+      Button.footer__btn(
+        @click.native="openModal"
+      )
         | Связаться с нами
 </template>
 
@@ -13,6 +15,11 @@ import Button from '@/components/UI/Button'
 export default {
   components: {
     Button
+  },
+  methods: {
+    openModal () {
+      this.$store.commit('SET_MODAL', true)
+    }
   }
 }
 </script>

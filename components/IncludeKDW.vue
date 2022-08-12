@@ -3,7 +3,7 @@
     title="Kazan Digital Week – 2022"
     text="Блок: Цифровые технологии в сфере сельского хозяйства"
     img="img/kdw/laptop.png"
-    link="123"
+    link="https://kdw-agro.com/"
     btnClass="KDW-section__btn"
     class="KDW-section"
   )

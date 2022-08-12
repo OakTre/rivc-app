@@ -1,7 +1,7 @@
 <template lang="pug">
   section.intro
     h1.visually-hidden РИВЦ – центр притяжения цифровых технологий в АПК
-    .intro__mobile(v-if="mobile")
+    .intro__mobile(v-if="$device.isMobileOrTablet")
       ._layer
       .site-container
         .intro__mobile-heading
@@ -15,20 +15,7 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      mobile: false
-    }
-  },
-  beforeMount () {
-    if (window.matchMedia('(max-width: 992px)').matches) {
-      this.mobile = true
-    } else {
-      this.mobile = false
-    }
-  }
-}
+export default {}
 </script>
 
 <style lang="scss">
