@@ -32,6 +32,16 @@ export default {}
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+
+      &::before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 36rem;
+        background: linear-gradient(0deg, rgba(17,19,45,1) 15%, rgba(0,0,0,0) 86%);
+        content: "";
+      }
     }
 
     &__bg-vid {
@@ -74,6 +84,10 @@ export default {}
 
       .site-container {
         height: 100%;
+      }
+
+      @include mq(custom, max, 475) {
+        padding-top: 8rem;
       }
     }
 
