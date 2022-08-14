@@ -8,8 +8,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Центр притяжения цифровых технологий в АПК' },
-      { name: 'msapplication-TileColor', content: '#171A3D' },
-      { name: 'theme-color', content: '#171A3D' }
+      { name: 'msapplication-TileColor', content: '#11132D' },
+      { name: 'theme-color', content: '#11132D' }
     ],
     link: [
       { rel: 'pple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },

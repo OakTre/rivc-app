@@ -63,7 +63,7 @@ export default {}
         position: absolute;
         top: 20%;
         left: 40%;
-        z-index: -1;
+        z-index: 0;
         width: 100%;
         height: 90rem;
         background-image: url('~@/assets/img/intro-bg-blur.svg');
@@ -92,6 +92,9 @@ export default {}
     }
 
     &__mobile-heading {
+      position: relative;
+      z-index: 1;
+
       img {
         width: 51%;
         height: auto;
