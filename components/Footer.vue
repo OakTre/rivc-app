@@ -1,7 +1,7 @@
 <template lang="pug">
   footer.footer
     .site-container.footer__container
-      p.footer__legend АО РИВЦ
+      p.footer__legend АО «РИВЦ»
       p.footer__legend._underline Все права защищены
       nuxt-link(to="/policy" class="footer__legend _underline") Политика конфиденциальности
       Button.footer__btn(
@@ -50,7 +50,7 @@ export default {
     }
 
     &__legend {
-      color: var(--color-white);
+      color: #515F84;
 
       &._underline {
         text-decoration: underline;

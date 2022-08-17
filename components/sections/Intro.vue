@@ -28,10 +28,10 @@ export default {}
 
     @include mq(md) {
       height: 62rem;
-      background: url("~@/assets/img/intro-bg.svg"), var(--color-bg);
+      background: url("~@/assets/img/intro-bg2.svg"), var(--color-bg);
       background-repeat: no-repeat;
       background-size: cover;
-      background-position: center;
+      background-position: 100% 10%;
 
       &::before {
         position: absolute;

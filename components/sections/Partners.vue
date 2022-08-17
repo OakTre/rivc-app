@@ -16,7 +16,10 @@ export default {
         { id: 1, img: 'img/partners/img1.svg', link: 'https://regagro.ru/' },
         { id: 2, img: 'img/partners/img2.svg', link: '/' },
         { id: 3, img: 'img/partners/img3.svg', link: 'https://innopolis.university' },
-        { id: 4, img: 'img/partners/img4.svg', link: '/' }
+        { id: 4, img: 'img/partners/img4.svg', link: '/' },
+        { id: 5, img: 'img/partners/img5.svg', link: '/' },
+        { id: 6, img: 'img/partners/img6.svg', link: '/' },
+        { id: 7, img: 'img/partners/img7.svg', link: '/' }
       ]
     }
   }
@@ -50,8 +53,8 @@ export default {
     height: 13.1rem;
 
     img {
-      width: 17.6rem;
-      height: 5rem;
+      max-width: 54%;
+      height: auto;
       object-fit: contain;
     }
 

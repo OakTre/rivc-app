@@ -12,12 +12,21 @@ section.include-page
 
       img.include-page__image(:src="getDynamicFile(img)", :alt="title")
 
-      a.button.include-page__btn(
-        :href="link",
-        target="_blank",
-        :class="btnClass"
-      )
-        | Перейти на сайт
+      .include-page__btn-wrapper
+        a.button.include-page__btn(
+          :href="link",
+          target="_blank",
+          :class="btnClass"
+        )
+          span.button__text
+            | {{ btnText }}
+        a.button.include-page__btn-secondary(
+          v-if="link2"
+          href="https://docs.google.com/forms/d/1fG0TOTmJmB_DSUg7gzIrAacmJOkoacrOufFm58PS2nA/edit",
+          target="_blank"
+        )
+          span.button__text
+            | Подать заявку
 </template>
 
 <script>
@@ -42,6 +51,13 @@ export default {
     btnClass: {
       type: String,
       default: ''
+    },
+    link2: {
+      type: Boolean
+    },
+    btnText: {
+      type: String,
+      default: 'Перейти на сайт'
     }
   }
 }
@@ -144,6 +160,37 @@ export default {
     @include mq(md) {
       margin-top: 0;
     }
+
+    @include mq(sm) {
+      padding: 1.8rem 5rem;
+    }
+  }
+
+  &__btn-secondary {
+    display: inline-block;
+    margin-top: 6rem;
+    background-color: var(--color-white);
+    color: var(--color-purple-btn);
+    border-color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-purple-btn);
+      border-color: var(--color-purple-btn);
+
+      .button__text {
+        color: var(--color-white);
+      }
+    }
+
+    .button__text {
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    @include mq(sm) {
+      margin-top: 3rem;
+      padding: 1.8rem 4.8rem;
+    }
   }
 
   &__heading-wrapper {
@@ -180,6 +227,17 @@ export default {
       position: absolute;
       top: 2rem;
       right: 2rem;
+    }
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3.6rem;
+
+    @include mq(sm) {
+      flex-direction: column;
+      gap: 0;
     }
   }
 }

@@ -4,7 +4,9 @@
     text="50% софинансирование"
     img="img/avto/laptop.png"
     link="https://drive.google.com/file/d/1ErAeIk1toNvUA-H2-Gz10IQz3dTLmMJo/view"
+    link2=true
     btnClass="SHTP-section__btn"
+    btnText="Презентация"
     class="SHTP-section"
   )
     ul.SHTP-section__list
