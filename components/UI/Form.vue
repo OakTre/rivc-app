@@ -103,15 +103,20 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    async onSubmit () {
       this.$v.form.$touch()
 
       if (!this.$v.form.$error) {
-        // console.log(JSON.stringify(this.form))
-        this.success = true
-        this.name = ''
-        this.email = ''
-        this.tel = ''
+        await this.$axios.post('/api/message', this.form)
+          .then((res) => {
+            this.success = true
+            this.name = ''
+            this.email = ''
+            this.tel = ''
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
     }
   }

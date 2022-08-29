@@ -13,13 +13,13 @@ export default {
   data () {
     return {
       partnersList: [
-        { id: 1, img: 'img/partners/img1.svg', link: 'https://regagro.ru/' },
         { id: 2, img: 'img/partners/img2.svg', link: '/' },
         { id: 3, img: 'img/partners/img3.svg', link: 'https://innopolis.university' },
-        { id: 4, img: 'img/partners/img4.svg', link: '/' },
+        // { id: 4, img: 'img/partners/img4.svg', link: '/' },
         { id: 5, img: 'img/partners/img5.svg', link: '/' },
         { id: 6, img: 'img/partners/img6.svg', link: '/' },
-        { id: 7, img: 'img/partners/img7.svg', link: '/' }
+        { id: 7, img: 'img/partners/img7.svg', link: '/' },
+        { id: 8, img: 'img/partners/img8.svg', link: '/' }
       ]
     }
   }
