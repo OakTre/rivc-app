@@ -36,7 +36,6 @@ export default {
   @import '~@/assets/styles/global/helpers/media';
 
   .SHTP-section {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     background: var(--gradient-avto);

@@ -122,11 +122,12 @@ export default {
 
     &__legend-text {
       display: block;
-      max-width: 11.3rem;
+      max-width: 24.3rem;
 
       @include mq(sm) {
         font: var(--font-xs);
         line-height: 1;
+        max-width: 11.2rem;
       }
     }
 
@@ -140,6 +141,7 @@ export default {
       padding-left: 100%;
       padding-right: 100%;
       margin-right: -100%;
+      margin-bottom: 3rem;
 
       ul {
         li {

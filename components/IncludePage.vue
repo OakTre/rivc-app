@@ -4,7 +4,6 @@ section.include-page
     .include-page__heading-wrapper
       h1.include-page__heading
         | {{ title }}
-      nuxt-link.include-page__back(:to="{ path: '/', hash: '#projects' }")
     p.include-page__text(v-if="text")
       | {{ text }}
     .include-page__info
@@ -65,22 +64,26 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/styles/global/helpers/media";
+@import "~@/assets/styles/global/helpers/mixins";
 
 .include-page {
   position: relative;
-  height: 100vh;
-  display: flex;
+  height: 100%;
+  display: block;
   flex-direction: column;
   justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 1.2rem;
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  @include customScrollbar();
 
   @include mq(lg) {
-    height: auto;
-    padding-top: 7.5rem;
-    padding-bottom: 7.5rem;
+    border-radius: 0;
   }
 
   @include mq(sm) {
-    margin-bottom: 4rem;
     padding-top: 7.8rem;
     padding-bottom: 7.8rem;
   }
@@ -185,6 +188,10 @@ export default {
     .button__text {
       font-weight: 500;
       transition: color var(--transition);
+    }
+
+    @include mq(md) {
+      margin-top: 0;
     }
 
     @include mq(sm) {

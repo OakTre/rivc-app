@@ -73,7 +73,7 @@ import Button from '@/components/UI/Button'
 const phone = helpers.regex('phone', /^(\+7|7|8)?[\s-]?\(?[489][0-9]{2}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/)
 
 export default {
-  nmae: 'Modal',
+  name: 'Modal',
   components: {
     Button
   },
@@ -142,16 +142,24 @@ export default {
     closeModal () {
       this.$store.commit('SET_MODAL', false)
       this.success = false
+      this.form.name = ''
+      this.form.email = ''
+      this.form.tel = ''
     },
-    onSubmit () {
+    async onSubmit () {
       this.$v.form.$touch()
 
       if (!this.$v.form.$error) {
-        // console.log(JSON.stringify(this.form))
-        this.success = true
-        this.name = ''
-        this.email = ''
-        this.tel = ''
+        await this.$axios.post('/api/message', this.form)
+          .then((res) => {
+            this.success = true
+            this.name = ''
+            this.email = ''
+            this.tel = ''
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
     }
   }
