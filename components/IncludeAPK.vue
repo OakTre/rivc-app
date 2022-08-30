@@ -194,9 +194,9 @@ export default {
       margin-top: 8.4rem;
 
       &:hover {
-        background-color: var(--color-purple-btn);
-        border-color: var(--color-purple-btn);
-        color: var(--color-white);
+        background-color: var(--color-white);
+        border-color: var(--color-white);
+        color: var(--color-purple-btn);
       }
 
       @include mq(md) {

@@ -82,7 +82,7 @@ section.section.projects(id="projects")
           span.apk-section__legend
             | 29
           span.apk-section__legend-text
-            | Хозяйств прошли отбор, находятся на этапе анализа
+            | хозяйств прошли отбор, находятся на этапе анализа
   ModalComponent(:open="$store.state.modalComponentAuto")
     IncludePage(
       title="Программа поддержки автоматизации СХТП"
@@ -126,12 +126,12 @@ section.section.projects(id="projects")
           span.KDW-section__legend
             | 4 320 мин.
           span.KDW-section__legend-text
-            | Обмена опытом по цмфровой трансформации АПК
+            | обмена опытом по цифровой трансформации АПК
         .KDW-section__item
           span.KDW-section__legend
             | 1 000 м
           span.KDW-section__legend-text
-            | Площадь блока АПК
+            | площадь блока АПК
 </template>
 
 <script>
