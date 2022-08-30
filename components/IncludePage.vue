@@ -171,7 +171,7 @@ export default {
 
   &__btn-secondary {
     display: inline-block;
-    margin-top: 6rem;
+    margin-top: 4.7rem;
     background-color: var(--color-white);
     color: var(--color-purple-btn);
     border-color: var(--color-white);
