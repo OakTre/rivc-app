@@ -11,12 +11,12 @@
         span.apk-section__legend
           | 50%
         span.apk-section__legend-text
-          | софинанси-рование
+          | софинансирование
       .apk-section__item
         span.apk-section__legend
           | 7
         span.apk-section__legend-text
-          | дневный интенсив
+          | дневной интенсив
       .apk-section__item
         span.apk-section__legend
           | 50
