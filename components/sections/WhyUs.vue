@@ -1,28 +1,42 @@
 <template lang="pug">
 section.section.why-us
   .site-container.why-us__container.site-top-line
-    h2.why-us__heading.site-heading Почему РИВЦ
+    h2.why-us__heading.site-heading {{ title }}
     ul.why-us__list.grid-container
       li.why-us__item(v-for="item in whyList" :key="item.id")
         .why-us__item-inner
-          h3.why-us__item-heading {{ item.heading }}
-          .why-us__item-text
-            p
-              | #[b {{ item.text1 }}]
-            p
-              | {{ item.text2 }}
+          h3.why-us__item-heading {{ item.attributes.Heading }}
+          .why-us__item-text(v-html="item.attributes.Description")
 </template>
 
 <script>
 export default {
   data () {
     return {
-      whyList: [
-        { id: 0, heading: 'Эффективность', text1: 'Основная цель нашей деятельности – предоставить аграриям инновационные решения для эффективной работы и роста агропромышленного бизнеса.', text2: 'Сельское хозяйство – одна из ключевых отраслей экономики. От эффективной работы сельхозтоваропроизводителей зависят доступность продуктов питания, здоровье нации и благополучие страны.' },
-        { id: 1, heading: 'Доступность технологий', text1: 'Мы заботимся о том, чтобы современные технологии были доступны всем участникам агропромышленного комплекса.', text2: 'Наша задача – создать комфортные условия для развития бизнеса даже в самых труднодоступных уголках нашей страны. На помощь могут рассчитывать как крупные агрохолдинги, так и совсем небольшие фермские хозяйства.' },
-        { id: 2, heading: 'Открытые отношения', text1: 'Мы выстраиваем отношения внутри компании и с партнерами на взаимном уважении и доверии.', text2: 'Ценность доверительных отношений означает, что одним из наших главных приоритетов является честная совместная работа, направленная на достижение больших результатов.' },
-        { id: 3, heading: 'Экология и ресурсосбережение', text1: 'Системы аналитики больших данных помогают рационально использовать природные ресурсы, сохраняя целостность нашей планеты.', text2: 'Потенциал в виде почвенных и климатических ресурсов гарантирует благополучие нашей планеты. Экология играет важную роль и затрагивает все сферы деятельности людей. С ухудшением состояния природной среды замедляется развитие бизнеса и качество жизни каждого человека.' }
-      ]
+      whyList: [],
+      title: 'Почему РИВЦ',
+      loader: true,
+      pageLocale: this.$i18n.locale
+    }
+  },
+  created () {
+    this.getWhyList()
+    this.setInfo()
+  },
+  methods: {
+    async getWhyList () {
+      try {
+        await this.$strapi.find('why-uses', { locale: this.pageLocale }).then((result) => {
+          this.whyList = result.data
+          this.loader = false
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    },
+    setInfo () {
+      this.title = this.pageLocale === 'en' ? 'Why Us' : 'Почему РИВЦ'
     }
   }
 }

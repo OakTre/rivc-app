@@ -9,7 +9,7 @@ section.include-page
     .include-page__info
       slot
 
-      img.include-page__image(:src="getDynamicFile(img)", :alt="title")
+      img.include-page__image(:src="img", :alt="title")
 
       .include-page__btn-wrapper
         a.button.include-page__btn(
@@ -25,7 +25,7 @@ section.include-page
           target="_blank"
         )
           span.button__text
-            | Подать заявку
+            | {{ link2Text }}
 </template>
 
 <script>
@@ -53,6 +53,10 @@ export default {
     },
     link2: {
       type: Boolean
+    },
+    link2Text: {
+      type: String,
+      default: 'Подать заявку'
     },
     btnText: {
       type: String,

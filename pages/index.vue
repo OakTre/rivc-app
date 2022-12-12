@@ -6,6 +6,7 @@
     Increase
     Mission
     WhyUs
+    News
     Partners
     ContactUs
 </template>
@@ -19,6 +20,7 @@ import Mission from '@/components/sections/Mission'
 import WhyUs from '@/components/sections/WhyUs'
 import Partners from '@/components/sections/Partners'
 import ContactUs from '@/components/sections/ContactUs'
+import News from '@/components/sections/News'
 
 export default {
   name: 'IndexPage',
@@ -30,7 +32,8 @@ export default {
     Mission,
     WhyUs,
     Partners,
-    ContactUs
+    ContactUs,
+    News
   }
 }
 </script>

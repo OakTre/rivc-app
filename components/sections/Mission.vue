@@ -3,46 +3,72 @@ section.section.mission(id="company")
   ._layer
   .site-container.mission__container.site-top-line
     ul.mission__list.grid-container
-      li.mission__item
+      li.mission__item(v-for="item in list" :key="item.id")
         .mission__item-inner
-          h3.mission__item-heading Миссия
+          h3.mission__item-heading {{ item.attributes.Heading }}
           p.mission__text
-            | Создать цифровую среду больших возможностей для успешного развития сельского хозяйства
+            | {{ item.attributes.Body }}
+
       li.mission__item
-        .mission__item-inner
-          h3.mission__item-heading Цель
-          p.mission__text
-            | Цифровая трансформация АПК РФ к&nbsp;2030 году
-      li.mission__item
-        .mission__item-block
-          p
-            | За свою практически 50-летнюю историю наша организация кардинально видоизменилась.
-            | Теперь мы не просто собираем статистику и оказываем услуги технического сопровождения,
-            | полиграфии, фото- и видеосъемки для предприятий и государственных структур АПК РТ.
-          p
-            | На сегодняшний день АО «РИВЦ» – двигатель цифровой трансформации агропромышленного комплекса Республики Татарстан.
+        .mission__item-block(v-html="text")
+
         .mission__item-block
           button.mission__item-btn(
             aria-label="ВОСПРОИЗВЕСТИ видео"
             @click="openModal"
           )
           img.mission__preview-img(
-            src="@/assets/img/mission/preview.jpg",
+            :src="$store.state.strapiURL + image",
             alt="Предпросмотр для видео"
           )
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      list: [],
+      text: '',
+      image: '',
+      loader: true,
+      pageLocale: this.$i18n.locale
+    }
+  },
+  created () {
+    this.getMissionList()
+    this.getAboutText()
+  },
   methods: {
     openModal () {
       this.$store.commit('SET_MODAL_VID', true)
+    },
+    async getMissionList () {
+      try {
+        await this.$strapi.find('mission-goals', { locale: this.pageLocale }).then((result) => {
+          this.list = result.data
+          this.loader = false
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    },
+    async getAboutText () {
+      try {
+        await this.$strapi.find('about-text', { populate: '*', locale: this.pageLocale }).then((result) => {
+          this.text = result.data.attributes.Body
+          this.image = result.data.attributes.Image.data.attributes.url
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@/assets/styles/global/helpers/media';
 
 .mission {
@@ -203,8 +229,8 @@ export default {
       }
 
       @include mq(md) {
-        max-width: 100%;
         margin-right: 0;
+        max-width: 100%;
       }
 
       @include mq(sm) {

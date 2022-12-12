@@ -1,4 +1,5 @@
 export default {
+  ssr: false,
   head: {
     title: 'РИВЦ',
     htmlAttrs: {
@@ -34,14 +35,42 @@ export default {
   components: true,
 
   buildModules: [
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/device'
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-i18n',
+    '@nuxtjs/strapi'
   ],
+  i18n: {
+    locales: ['ru', 'en'],
+    defaultLocale: 'ru'
+  },
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1339/api',
+    entities: [
+      'nav-menus',
+      'advantages',
+      'partners',
+      'why-uses',
+      'mission-goals',
+      'articles',
+      { name: 'logo', type: 'single' },
+      { name: 'intro', type: 'single' },
+      { name: 'email', type: 'single' },
+      { name: 'location', type: 'single' },
+      { name: 'increase', type: 'single' },
+      { name: 'about-text', type: 'single' },
+      { name: 'first-project', type: 'single' },
+      { name: 'project-second', type: 'single' },
+      { name: 'project-third', type: 'single' },
+      { name: 'project-four', type: 'single' },
+      { name: 'policy', type: 'single' },
+    ]
+  },
   styleResources: {
     scss: ['./assets/styles/variables.scss']
   },
@@ -51,6 +80,7 @@ export default {
     baseURL: '/'
   },
   build: {
+    postcss: null
   },
   serverMiddleware: ['~/api/index.js'],
   server: {

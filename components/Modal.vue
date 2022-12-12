@@ -7,15 +7,17 @@
         p.modal__text
           | Ваша заявка принята!
       .initial(:class="success ? 'isHidden' : ''")
-        h3.modal__heading Свяжитесь с нами
+        h3.modal__heading
+          | {{ setHeading }}
         p.modal__text
-          | Оставьте ваши контактные данные, и мы свяжемся с Вами в ближайшее время
+          | {{ setTextHeading }}
         form.modal-form(@submit.prevent="onSubmit")
           label.modal-form__label
-            span.modal-form__name ФИО
+            span.modal-form__name
+              | {{ setFio }}
             input.modal-form__input(
               name="name"
-              placeholder="Иванов Иван Иванович"
+              :placeholder="setfioPlaceHolder"
               type="text"
               v-model="form.name"
               :class="$v.form.name.$error ? 'is-error' : ''"
@@ -23,10 +25,11 @@
             span.form__label-error(v-if="$v.$error")
               | {{$v.$error ? nameError[0] : []}}
           label.modal-form__label
-            span.modal-form__name Телефон
+            span.modal-form__name
+              | {{ setPhoneName }}
             input.modal-form__input(
               name="tel"
-              placeholder="+7 (ХХХ) ХХХ ХХ ХХ"
+              :placeholder="setPhonePlaceHolder"
               v-mask="'+7 (###) ###-##-##'"
               type="text"
               :class="$v.form.tel.$error ? 'is-error' : ''"
@@ -35,7 +38,8 @@
             span.form__label-error(v-if="$v.$error")
               | {{$v.$error ? telErrors[0] : []}}
           label.modal-form__label
-            span.modal-form__name Почта
+            span.modal-form__name
+              | {{ setEmailName }}
             input.modal-form__input(
               name="email"
               placeholder="example@mail.com"
@@ -45,7 +49,8 @@
             )
             span.form__label-error(v-if="$v.$error")
               | {{$v.$error ? emailErrors[0] : []}}
-          span.modal-form__legend Выберете предпочтительный способ связи:
+          span.modal-form__legend
+            | {{ setContactMethodName }}
           .modal-form__radio-btns
             label.modal-form__checkbox
               input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="WhtasUp" class="visually-hidden")
@@ -54,15 +59,15 @@
             label.modal-form__checkbox
               input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="email" class="visually-hidden")
               span.modal-form__checkbox-text
-                | Письмо
+                | {{ setEmailName }}
             label.modal-form__checkbox
               input(type="radio" v-model="form.contactMeThroue" name="contact-me-throue" value="call" checked class="visually-hidden")
               span.modal-form__checkbox-text
-                | Звонок
+                | {{ setCallName }}
             span.form__label-error(v-if="$v.$error")
               | {{$v.$error ? contactMeThroueErrors[0] : []}}
           Button.button--secondary.modal-form__btn
-            | Отправить
+            | {{ setBtnText }}
 </template>
 <script>
 import { validationMixin } from 'vuelidate'
@@ -91,7 +96,17 @@ export default {
         tel: '',
         contactMeThroue: ''
       },
-      success: false
+      success: false,
+      formName: 'Ваше имя',
+      formEmail: 'Ваш e-mail',
+      formTel: 'Ваш телефон',
+      formText: 'Сообщение',
+      formBtnText: 'Отправить',
+      pageLocale: this.$i18n.locale,
+      errorText: 'Обязательно для заполнения.',
+      errorTextEmail: 'Невалидный email.',
+      errorTextName: 'Не меньше двух знаков.',
+      errorTextPhone: 'Невалидный номер телефона.'
     }
   },
   validations: {
@@ -116,27 +131,60 @@ export default {
   computed: {
     nameError () {
       const errors = []
-      if (!this.$v.form.name.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.name.minLength) { errors.push('Не меньше двух знаков.') }
+      if (!this.$v.form.name.required) { errors.push(this.$i18n.locale === "ru" ? "Обязательно для заполнения" : "Required field") }
+      if (!this.$v.form.name.minLength) { errors.push(this.$i18n.locale === "ru" ? "Не меньше двух знаков." : "At least two characters") }
       return errors
     },
     emailErrors () {
       const errors = []
-      if (!this.$v.form.email.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.email.email) { errors.push('Невалидный email.') }
+      if (!this.$v.form.email.required) { errors.push(this.$i18n.locale === "ru" ? "Обязательно для заполнения" : "Required field") }
+      if (!this.$v.form.email.email) { errors.push(this.$i18n.locale === "ru" ? "Невалидный email." : "Invalid Email") }
       return errors
     },
     telErrors () {
       const errors = []
-      if (!this.$v.form.tel.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.tel.phone) { errors.push('Невалидный номер телефона.') }
+      if (!this.$v.form.tel.required) { errors.push(this.$i18n.locale === "ru" ? "Обязательно для заполнения" : "Required field") }
+      if (!this.$v.form.tel.phone) { errors.push(this.$i18n.locale === "ru" ? "Невалидный номер телефона" : "Invalid phone number") }
       return errors
     },
     contactMeThroueErrors () {
       const errors = []
-      if (!this.$v.form.contactMeThroue.required) { errors.push('Обязательно для заполнения.') }
+      if (!this.$v.form.contactMeThroue.required) { errors.push(this.$i18n.locale === "ru" ? "Обязательно для заполнения" : "Required field") }
       return errors
+    },
+    setHeading () {
+      return this.$i18n.locale === "ru" ? "Свяжитесь с нами" : "Contact us";
+    },
+    setTextHeading () {
+      return this.$i18n.locale === "ru" ? "Оставьте ваши контактные данные, и мы свяжемся с Вами в ближайшее время" : "Leave your contact details and we will contact you as soon as possible";
+    },
+    setFio () {
+      return this.$i18n.locale === "ru" ? "ФИО" : "Name";
+    },
+    setfioPlaceHolder () {
+      return this.$i18n.locale === "ru" ? "Ваше имя" : "Your name";
+    },
+    setPhoneName () {
+      return this.$i18n.locale === "ru" ? "Ваш телефон" : "Phone";
+    },
+    setPhonePlaceHolder () {
+      return this.$i18n.locale === "ru" ? "Ваш телефон" : "Your Phone";
+    },
+    setEmailName () {
+      return this.$i18n.locale === "ru" ? "Почта" : "Email";
+    },
+    setContactMethodName () {
+      return this.$i18n.locale === "ru" ? "Выберете предпочтительный способ связи:" : "Choose your preferred contact method:";
+    },
+    setCallName () {
+      return this.$i18n.locale === "ru" ? "Звонок" : "Call";
+    },
+    setBtnText () {
+      return this.$i18n.locale === "ru" ? "Отправить" : "Send";
     }
+  },
+  created () {
+    this.setInfo()
   },
   methods: {
     closeModal () {
@@ -161,6 +209,17 @@ export default {
             console.log(err)
           })
       }
+    },
+    setInfo () {
+      this.formName = this.pageLocale === 'en' ? 'Name' : 'Ваше имя'
+      this.formEmail = this.pageLocale === 'en' ? 'Email' : 'Ваш e-mail'
+      this.formTel = this.pageLocale === 'en' ? 'Phone' : 'Ваш телефон'
+      this.formText = this.pageLocale === 'en' ? 'Message' : 'Сообщение'
+      this.formBtnText = this.pageLocale === 'en' ? 'Send' : 'Отправить'
+      this.errorTextPhone = this.pageLocale === 'en' ? 'Invalid phone number' : 'Невалидный номер телефона'
+      this.errorTextName = this.pageLocale === 'en' ? 'At least two characters' : 'Не меньше двух знаков.'
+      this.errorTextEmail = this.pageLocale === 'en' ? 'Invalid Email' : 'Невалидный email.'
+      this.errorText = this.pageLocale === 'en' ? 'Required field' : 'Обязательно для заполнения.'
     }
   }
 }

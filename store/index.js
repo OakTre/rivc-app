@@ -5,7 +5,12 @@ export const state = () => ({
   modalComponent: false,
   modalComponentApk: false,
   modalComponentAuto: false,
-  modalComponentKDW: false
+  modalComponentKDW: false,
+  strapiURL: 'https://admin.rivc-it.com',
+  logo: '',
+  news: [],
+  loacale: '',
+  firstProject: []
 })
 
 export const mutations = {
@@ -29,5 +34,20 @@ export const mutations = {
   },
   SET_MODAL_COMPONENT_KDW (state, value) {
     state.modalComponentKDW = value
+  },
+  SET_STRAPI_URL (state, value) {
+    state.strapiURL = value
+  },
+  SET_LOGO (state, value) {
+    state.logo = value
+  },
+  SET_NEWS (state, value) {
+    state.news = value
+  },
+  SET_LOCALE (state, value) {
+    state.loacale = value
+  },
+  SET_FIRST_PROJECT (state, value) {
+    state.firstProject = value
   }
 }

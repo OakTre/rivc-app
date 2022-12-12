@@ -1,6 +1,9 @@
 <template lang="pug">
   section.intro
     h1.visually-hidden РИВЦ – центр притяжения цифровых технологий в АПК
+
+    .intro__loader(v-if='loader')
+
     .intro__mobile(v-if="$device.isMobileOrTablet")
       ._layer
       .site-container
@@ -8,14 +11,43 @@
           img(src='@/assets/img/mob-text.svg' alt="alt")
     video.intro__bg-vid(
       playsinline muted autoplay loop
-      src="@/assets/includes/vid.mp4"
+      :src="$store.state.strapiURL + vidUrl"
       v-else
     )
 
 </template>
 
 <script>
-export default {}
+import Loader from '@/components/UI/Loader'
+
+export default {
+  components: {
+    Loader
+  },
+  data () {
+    return {
+      vidUrl: '',
+      loader: true
+    }
+  },
+  created () {
+    this.getIntro()
+  },
+  methods: {
+    async getIntro () {
+      try {
+        // eslint-disable-next-line quote-props
+        await this.$strapi.find('intro', { populate: '*' }).then((result) => {
+          this.vidUrl = result.data.attributes.video.data.attributes.url
+          this.loader = false
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -25,6 +57,35 @@ export default {}
     position: relative;
     height: calc(100vh - var(--header-height));
     background-color: var(--color-dark-blue);
+    --grey-2: var(--color-dark-blue);
+    --grey-1: var(--color-dark-blue2);
+
+    &__loader {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation-duration: 1.5s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: backgroundMovement;
+      animation-timing-function: linear;
+      background: var(--grey-2);
+      background: linear-gradient(267.58deg, var(--grey-2) 0%, var(--grey-1) 80%, var(--grey-2) 100%);
+      background-size: 200%;
+      display: inline-block;
+    }
+
+    @keyframes backgroundMovement {
+      0% {
+        background-position: 100%;
+      }
+
+      100% {
+        background-position: -100%;
+      }
+    }
 
     @include mq(md) {
       height: 62rem;

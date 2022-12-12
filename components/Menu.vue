@@ -3,7 +3,7 @@
   .site-container.menu__container
     .menu__heading-container
       a.menu__logo(href="/")
-        img(src="@/assets/img/logo.svg", alt="alt")
+        img(:src="$store.state.strapiURL + $store.state.logo", alt="alt")
       button.menu__btn(@click="closeMenu")
         span
         span

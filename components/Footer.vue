@@ -1,13 +1,13 @@
 <template lang="pug">
   footer.footer
     .site-container.footer__container
-      p.footer__legend АО «РИВЦ»
-      p.footer__legend._underline Все права защищены
-      nuxt-link(to="/policy" class="footer__legend _underline") Политика конфиденциальности
+      p.footer__legend {{ setCompanyTitle }}
+      p.footer__legend {{ setRightTitle }}
+      nuxt-link(to="/policy" class="footer__legend _underline") {{ setPolicyTitle }}
       Button.footer__btn(
         @click.native="openModal"
       )
-        | Связаться с нами
+        | {{ setBtnTitle }}
 </template>
 
 <script>
@@ -16,9 +16,45 @@ export default {
   components: {
     Button
   },
+  data () {
+    return {
+      companytitle: 'АО «РИВЦ»',
+      copyright: 'Все права защищены',
+      policy: 'Политика конфиденциальности',
+      btnTitle: 'Связаться с нами',
+      pageLocale: this.$i18n.locale
+    }
+  },
+  computed: {
+    setBtnTitle () {
+      // eslint-disable-next-line no-return-assign, vue/no-side-effects-in-computed-properties
+      return this.$i18n.locale === 'ru' ? 'Связаться с нами' : 'Contact us'
+    },
+    setPolicyTitle () {
+      // eslint-disable-next-line no-return-assign, vue/no-side-effects-in-computed-properties
+      return this.$i18n.locale === 'ru' ? 'Политика конфиденциальности' : 'Privacy policy'
+    },
+    setRightTitle () {
+      // eslint-disable-next-line no-return-assign, vue/no-side-effects-in-computed-properties
+      return this.$i18n.locale === 'ru' ? 'Все права защищены' : 'All rights reserved'
+    },
+    setCompanyTitle () {
+      // eslint-disable-next-line no-return-assign, vue/no-side-effects-in-computed-properties
+      return this.$i18n.locale === 'ru' ? 'АО «РИВЦ»' : 'RICC'
+    }
+  },
+  created () {
+    this.setInfo()
+  },
   methods: {
     openModal () {
       this.$store.commit('SET_MODAL', true)
+    },
+    setInfo () {
+      this.companytitle = this.pageLocale === 'en' ? 'RICC' : 'АО «РИВЦ»'
+      this.copyright = this.pageLocale === 'en' ? 'All rights reserved' : 'Все права защищены'
+      this.policy = this.pageLocale === 'en' ? 'Privacy policy' : 'Политика конфиденциальности'
+      this.btnTitle = this.pageLocale === 'en' ? 'Contact us' : 'Связаться с нами'
     }
   }
 }

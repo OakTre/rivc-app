@@ -1,137 +1,88 @@
 <template lang="pug">
 section.section.projects(id="projects")
   .site-container.projects__container.site-top-line
-    h2.site-heading Проекты
+    h2.site-heading {{ title }}
     ul.projects__list.grid-container
       button.projects__item(
         @click="openAgroModal"
       )
-        h3.projects__item-headding АГРОПОЛИЯ
+        h3.projects__item-headding(v-if="firstProject.data")
+          | {{ firstProject.data.attributes.Name }}
       button.projects__item(
         @click="openAPKModal"
       )
-        h3.projects__item-headding Программа повышения квалификации
+        h3.projects__item-headding(v-if="secondProject.data")
+          | {{ secondProject.data.attributes.Name }}
       button.projects__item(
         @click="openAutoModal"
       )
-        h3.projects__item-headding Программа поддержки автоматизации
+        h3.projects__item-headding(v-if="projectThird.data")
+          | {{ projectThird.data.attributes.Name }}
       button.projects__item(
         @click="openKDWModal"
       )
-        h3.projects__item-headding Kazan Digital Week
+        h3.projects__item-headding(v-if="projectFour.data")
+          | {{ projectFour.data.attributes.Name }}
 
-  ModalComponent(:open="$store.state.modalComponent")
+  ModalComponent(:open="$store.state.modalComponent" v-if="firstProject.data")
     IncludePage(
-      title="ГИС АПК РТ Агрополия"
-      text="Единая цифровая экосистема данных АПК Республики Татарстан"
-      img="img/agro/laptop.png"
+      :title="firstProject.data.attributes.Heading"
+      :text="firstProject.data.attributes.SubHeading"
+      :img="$store.state.strapiURL + firstProject.data.attributes.Image.data.attributes.url"
       link="https://agropoliya.ru/"
       btnClass="button--secondary"
       class="agro-section"
+      :btnText="btnTitle"
     )
-      h3.agro-section__legend
-      | 19 проектов по цифровизации
-      p.agro-section__text
-        | АПК для достижения цифровой зрелости
-      h3.agro-section__legend
-        | 8 проектов по цифровизации
-      p.agro-section__text
-        | Программа автоматизации агробизнеса на стадии опытной эксплуатации
-      .agro-section__feautures
-        p.agro-section__feat-heading Преимущества:
-        ul
-          li(v-for="item in list")
-            | {{ item }}
+      .div
+        .div(v-html="firstProject.data.attributes.Description")
 
-  ModalComponent(:open="$store.state.modalComponentApk")
+      .agro-section__feautures
+        .div(v-html="firstProject.data.attributes.Feautures")
+
+  ModalComponent(:open="$store.state.modalComponentApk" v-if="secondProject.data")
     IncludePage(
-      title="Программа повышения калификации «Цифровая трансформация в АПК»"
-      img="img/kval/laptop.png"
+      :title="secondProject.data.attributes.Heading"
+      :img="$store.state.strapiURL + secondProject.data.attributes.Image.data.attributes.url"
       link="https://edu.agropoliya.ru/"
       btnClass="apk-section__btn"
       class="apk-section"
+      :btnText="btnTitle"
     )
-      .apk-section__list
-        .apk-section__item
-          span.apk-section__legend
-            | 50%
-          span.apk-section__legend-text
-            | софинансирование
-        .apk-section__item
-          span.apk-section__legend
-            | 7
-          span.apk-section__legend-text
-            | дневной интенсив
-        .apk-section__item
-          span.apk-section__legend
-            | 50
-          span.apk-section__legend-text
-            | часов практики
-      .apk-section__feautures
-        p.apk-section__feat-heading Преимущества:
-        ul
-          li(v-for="item in list")
-            | {{ item }}
-      .apk-section__list
-        .apk-section__item
-          span.apk-section__legend
-            | 39
-          span.apk-section__legend-text
-            | хозяйств прошли обучение
-        .apk-section__item
-          span.apk-section__legend
-            | 29
-          span.apk-section__legend-text
-            | хозяйств прошли отбор, находятся на этапе анализа
-  ModalComponent(:open="$store.state.modalComponentAuto")
+      .apk-section__list(v-html="secondProject.data.attributes.List")
+      .apk-section__feautures(v-html="secondProject.data.attributes.Feautures")
+      .apk-section__list(v-html="secondProject.data.attributes.List2")
+  ModalComponent(:open="$store.state.modalComponentAuto" v-if="projectThird.data")
     IncludePage(
-      title="Программа поддержки автоматизации СХТП"
-      text="50% софинансирование"
-      img="img/avto/laptop.png"
+      :title="projectThird.data.attributes.Heading"
+      :text="projectThird.data.attributes.SubHeading"
+      :img="$store.state.strapiURL + projectThird.data.attributes.Image.data.attributes.url"
       link="https://drive.google.com/file/d/1ErAeIk1toNvUA-H2-Gz10IQz3dTLmMJo/view"
       link2=true
       btnClass="SHTP-section__btn"
-      btnText="Презентация"
+      :btnText="btnTextPresent"
+      :link2Text="btnTextSendReq"
       class="SHTP-section"
     )
-      ul.SHTP-section__list
-        li.SHTP-section__item
-          span.SHTP-section__item-legend I этап
-          span.SHTP-section__item-text Повышение квалификации по курсу #[br] «Цифровая трансформация в АПК»
-        li.SHTP-section__item
-          span.SHTP-section__item-legend II этап
-          span.SHTP-section__item-text Анализ предприятия
-        li.SHTP-section__item
-          span.SHTP-section__item-legend III этап
-          span.SHTP-section__item-text Комплексное внедрение систем автоматизации, #[br] обучение профильных специалистов СХТП
+      .SHTP-section__list(v-html="projectThird.data.attributes.Feautures")
 
-  ModalComponent(:open="$store.state.modalComponentKDW")
+  ModalComponent(:open="$store.state.modalComponentKDW" v-if="projectFour.data")
     IncludePage(
-      title="Kazan Digital Week – 2022"
-      text="Блок: Цифровые технологии в сфере сельского хозяйства"
-      img="img/kdw/laptop.png"
+      :title="projectFour.data.attributes.Heading"
+      :text="projectFour.data.attributes.SubHeading"
+      :img="$store.state.strapiURL + projectFour.data.attributes.Image.data.attributes.url"
       link="https://kdw-agro.com/"
       btnClass="KDW-section__btn"
       class="KDW-section"
+      :btnText="btnTitle"
     )
-      .KDW-section__info
+      .KDW-section__info(v-html="projectFour.data.attributes.Descr")
         span.KDW-section__legend-small Международный форум
         span.KDW-section__legend-big 21-24 сентября
         span.KDW-section__legend-small Выставочный центр «Казань Экспо», г. Казань
 
-      .KDW-section__feautures
-        h3 Демонстрация успешных результатов автоматизации и цифровизации АПК РТ
-      .KDW-section__list
-        .KDW-section__item
-          span.KDW-section__legend
-            | 4 320 мин.
-          span.KDW-section__legend-text
-            | обмена опытом по цифровой трансформации АПК
-        .KDW-section__item
-          span.KDW-section__legend
-            | 1 000 м
-          span.KDW-section__legend-text
-            | площадь блока АПК
+      .KDW-section__feautures(v-html="projectFour.data.attributes.Feautures")
+      .KDW-section__list(v-html="projectFour.data.attributes.List")
 </template>
 
 <script>
@@ -140,14 +91,30 @@ export default {
   data () {
     return {
       argoModal: false,
+      title: 'Проекты',
       list: [
         'Аналитика на основе корректных данных',
         'Единая система сбора и хранения данных по всем направлениям',
         'Автоматическая передача данных в другие ГИС',
         'Прозрачность статистики',
         'Возможность упрощенной подачи документов на субсидии'
-      ]
+      ],
+      pageLocale: this.$i18n.locale,
+      firstProject: [],
+      secondProject: [],
+      projectThird: [],
+      projectFour: [],
+      btnTitle: 'Перейти на сайт',
+      btnTextPresent: 'Презентация',
+      btnTextSendReq: 'Подать заявку'
     }
+  },
+  created () {
+    this.setTitle()
+    this.getProjectFirst()
+    this.getSecondFirst()
+    this.getThirdProject()
+    this.getFourProject()
   },
   methods: {
     openAgroModal () {
@@ -161,6 +128,60 @@ export default {
     },
     openKDWModal () {
       this.$store.commit('SET_MODAL_COMPONENT_KDW', true)
+    },
+    setTitle () {
+      this.title = this.pageLocale === 'en' ? 'Projects' : 'Проекты'
+      this.btnTitle = this.pageLocale === 'en' ? 'Website' : 'Перейти на сайт'
+      this.btnTextPresent = this.pageLocale === 'en' ? 'Presentation' : 'Презентация'
+      this.btnTextSendReq = this.pageLocale === 'en' ? 'Send request' : 'Подать заявку'
+    },
+    async getProjectFirst () {
+      try {
+        // eslint-disable-next-line quote-props
+        await this.$strapi.find('first-project', { populate: '*', locale: this.pageLocale }).then((result) => {
+          this.firstProject = result
+          // this.$store.commit('SET_FIRST_PROJECT', result.data)
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    },
+    async getSecondFirst () {
+      try {
+        // eslint-disable-next-line quote-props
+        await this.$strapi.find('project-second', { populate: '*', locale: this.pageLocale }).then((result) => {
+          this.secondProject = result
+          // this.$store.commit('SET_FIRST_PROJECT', result.data)
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    },
+    async getThirdProject () {
+      try {
+        // eslint-disable-next-line quote-props
+        await this.$strapi.find('project-third', { populate: '*', locale: this.pageLocale }).then((result) => {
+          this.projectThird = result
+          // this.$store.commit('SET_FIRST_PROJECT', result.data)
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
+    },
+    async getFourProject () {
+      try {
+        // eslint-disable-next-line quote-props
+        await this.$strapi.find('project-four', { populate: '*', locale: this.pageLocale }).then((result) => {
+          this.projectFour = result
+          // this.$store.commit('SET_FIRST_PROJECT', result.data)
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('smth is wrong', error)
+      }
     }
   }
 }
@@ -256,56 +277,67 @@ export default {
   }
 
   &__list {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: var(--grid-offset);
+    ul {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: var(--grid-offset);
 
-    @include mq(md) {
-      grid-template-columns: repeat(6, 1fr);
-      align-self: stretch;
-    }
+      @include mq(md) {
+        grid-template-columns: repeat(6, 1fr);
+        align-self: stretch;
+      }
 
-    @include mq(sm) {
-      gap: 2.6rem 0;
+      @include mq(sm) {
+        gap: 2.6rem 0;
+      }
+
+      li {
+        grid-column: 3 span;
+
+        p {
+          &:nth-child(1) {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+
+            @include mq(sm) {
+              font: var(--font-xs);
+              margin-bottom: 0;
+            }
+          }
+
+          &:nth-child(2) {
+            display: block;
+
+            @include mq(sm) {
+              font: var(--font-xs);
+              line-height: 1;
+            }
+          }
+        }
+
+        @include mq(sm) {
+          grid-column: 6 span;
+        }
+      }
     }
   }
 
-  &__item {
-    grid-column: 3 span;
-
-    @include mq(sm) {
-      grid-column: 6 span;
-    }
-  }
-
-  &__legend-small {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-
-    @include mq(sm) {
-      font: var(--font-xs);
-      margin-bottom: 0;
-    }
-  }
-
-  &__legend-big {
-    font: var(--font-l);
-    display: block;
-    line-height: 1;
-
-    @include mq(sm) {
-      font: var(--font-xs);
+  &__info {
+    p {
       font-weight: 700;
+      margin-bottom: 0.8rem;
     }
-  }
 
-  &__legend-text {
-    display: block;
-
-    @include mq(sm) {
-      font: var(--font-xs);
+    h4 {
+      font: var(--font-l);
+      display: block;
       line-height: 1;
+
+      @include mq(sm) {
+        font: var(--font-xs);
+        font-weight: 700;
+      }
     }
   }
 
@@ -373,87 +405,94 @@ export default {
 
   &__list {
     align-self: stretch;
-  }
 
-  &__item {
-    position: relative;
-    padding: 4.3rem 2.4rem;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.4rem;
+    ul {
+      align-self: stretch;
 
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('~@/assets/img/avto/bg.png');
-      background-size: contain;
-      content: "";
-    }
+      li {
+        position: relative;
+        padding: 4.3rem 2.4rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.4rem;
 
-    @include mq(sm) {
-      padding: 3rem 1rem;
-      height: 12.5rem;
-    }
+        p {
+          &:nth-child(1) {
+            font: var(--font-l);
+            min-width: 11rem;
+            display: block;
+            margin-right: 4.5rem;
 
-    &:nth-child(1) {
-      &::before {
-        width: 22.6rem;
-        clip-path: polygon(0 0, 76% 0, 100% 100%, 0 100%);
+            @include mq(sm) {
+              font: var(--font-s);
+              font-weight: 700;
+              min-width: 6rem;
+              margin-right: 3.4rem;
+            }
+          }
+
+          &:nth-child(2) {
+            font-weight: 700;
+            display: block;
+            max-width: 50rem;
+
+            @include mq(sm) {
+              font: var(--font-xs);
+              br {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('~@/assets/img/avto/bg.png');
+          background-size: contain;
+          content: "";
+        }
 
         @include mq(sm) {
-          width: 19.6rem;
+          padding: 3rem 1rem;
+          height: 12.5rem;
         }
-      }
-    }
 
-    &:nth-child(2) {
-      &::before {
-        width: 28.1rem;
-        clip-path: polygon(0 0, 81% 0, 100% 100%, 0 100%);
+        &:nth-child(1) {
+          &::before {
+            width: 22.6rem;
+            clip-path: polygon(0 0, 76% 0, 100% 100%, 0 100%);
 
-        @include mq(sm) {
-          width: 24.2rem;
+            @include mq(sm) {
+              width: 19.6rem;
+            }
+          }
         }
-      }
-    }
 
-    &:nth-child(3) {
-      &::before {
-        width: 33.6rem;
-        clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
+        &:nth-child(2) {
+          &::before {
+            width: 28.1rem;
+            clip-path: polygon(0 0, 81% 0, 100% 100%, 0 100%);
 
-        @include mq(sm) {
-          width: 29rem;
+            @include mq(sm) {
+              width: 24.2rem;
+            }
+          }
         }
-      }
-    }
-  }
 
-  &__item-legend {
-    font: var(--font-l);
-    min-width: 11rem;
-    display: block;
-    margin-right: 4.5rem;
+        &:nth-child(3) {
+          &::before {
+            width: 33.6rem;
+            clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
 
-    @include mq(sm) {
-      font: var(--font-s);
-      font-weight: 700;
-      min-width: 6rem;
-      margin-right: 3.4rem;
-    }
-  }
-
-  &__item-text {
-    font-weight: 700;
-    display: block;
-
-    @include mq(sm) {
-      font: var(--font-xs);
-      br {
-        display: none;
+            @include mq(sm) {
+              width: 29rem;
+            }
+          }
+        }
       }
     }
   }
@@ -461,17 +500,27 @@ export default {
   &__btn {
     background-color: var(--color-purple-btn);
     border-color: var(--color-purple-btn);
-    margin-top: 6rem;
 
     &:hover {
       background-color: var(--color-white);
       border-color: var(--color-white);
       color: var(--color-pink-btn);
     }
+  }
 
-    @include mq(md) {
+  .include-page__btn-wrapper {
+    margin-top: 6rem;
+
+    @include mq(sm) {
       margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
+  }
+
+  .button {
+    margin-top: 0;
   }
 }
 
@@ -479,10 +528,56 @@ export default {
   background: var(--gradient-kval);
 
   &__list {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: var(--grid-offset);
     margin-bottom: 2.2rem;
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: var(--grid-offset);
+
+      @include mq(md) {
+        grid-template-columns: repeat(6, 1fr);
+        align-self: stretch;
+      }
+
+      @include mq(sm) {
+        gap: 2.6rem 0;
+      }
+
+      li {
+        grid-column: 2 span;
+
+        @include mq(sm) {
+          grid-column: 3 span;
+        }
+
+        p {
+          &:nth-child(1) {
+            display: block;
+            font: var(--font-l);
+            margin-bottom: 0.6rem;
+
+            @include mq(sm) {
+              font: var(--font-xs);
+              font-weight: 700;
+              margin-bottom: 0;
+            }
+          }
+
+          &:nth-child(2) {
+            display: block;
+            max-width: 24.3rem;
+
+            @include mq(sm) {
+              font: var(--font-xs);
+              line-height: 1;
+              max-width: 11.2rem;
+            }
+          }
+        }
+      }
+    }
+
 
     &:nth-last-of-type(1) {
       margin-bottom: 0;
@@ -501,46 +596,6 @@ export default {
           max-width: 16.4rem;
         }
       }
-    }
-
-    @include mq(md) {
-      grid-template-columns: repeat(6, 1fr);
-      align-self: stretch;
-    }
-
-    @include mq(sm) {
-      gap: 2.6rem 0;
-    }
-  }
-
-  &__item {
-    grid-column: 2 span;
-
-    @include mq(sm) {
-      grid-column: 3 span;
-    }
-  }
-
-  &__legend {
-    display: block;
-    font: var(--font-l);
-    margin-bottom: 0.6rem;
-
-    @include mq(sm) {
-      font: var(--font-xs);
-      font-weight: 700;
-      margin-bottom: 0;
-    }
-  }
-
-  &__legend-text {
-    display: block;
-    max-width: 24.3rem;
-
-    @include mq(sm) {
-      font: var(--font-xs);
-      line-height: 1;
-      max-width: 11.2rem;
     }
   }
 
@@ -621,7 +676,7 @@ export default {
 .agro-section{
   background: var(--gradient-argo);
 
-  &__legend {
+  h3 {
     margin-bottom: 0.6rem;
     font-weight: 700;
 
@@ -631,7 +686,7 @@ export default {
     }
   }
 
-  &__text {
+  p {
     margin-bottom: 3rem;
 
     @include mq(sm) {
@@ -652,11 +707,20 @@ export default {
     padding-right: 100%;
     margin-right: -100%;
 
+    p {
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
     ul {
       li {
         position: relative;
         padding-left: 2rem;
         margin-bottom: 0.5rem;
+
+        p {
+          font-weight: 400;
+        }
 
         &:last-child {
           margin-bottom: 0;
@@ -683,17 +747,6 @@ export default {
     @include mq(sm) {
       padding-top: 2.6rem;
       padding-bottom: 2.7rem;
-    }
-  }
-
-  &__feat-heading {
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-
-    @include mq(sm) {
-      font: var(--font-xs);
-      font-weight: 700;
-      margin-bottom: 1rem;
     }
   }
 }

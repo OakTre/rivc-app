@@ -10,7 +10,7 @@ form.form(@submit.prevent="onSubmit")
       label.form__label
         input.form__input(
           name="name"
-          placeholder="Ваше имя"
+          :placeholder="formName"
           v-model="form.name"
           :class="$v.form.name.$error ? 'is-error' : ''")
         span.form__label-error(v-if="$v.$error")
@@ -19,7 +19,7 @@ form.form(@submit.prevent="onSubmit")
         input.form__input(
           name="tel"
           v-mask="'+7 (###) ###-##-##'"
-          placeholder="Ваш телефон"
+          :placeholder="formTel"
           :class="$v.form.tel.$error ? 'is-error' : ''"
           v-model="form.tel"
         )
@@ -28,18 +28,18 @@ form.form(@submit.prevent="onSubmit")
       label.form__label
         input.form__input(
           name="email"
-          placeholder="Ваш e-mail"
+          :placeholder="formEmail"
           :class="$v.form.email.$error ? 'is-error' : ''"
           v-model="form.email"
         )
         span.form__label-error(v-if="$v.$error")
           | {{$v.$error ? emailErrors[0] : []}}
       label.form__label.form__label--big
-        textarea.form__textarea(name="text" placeholder="Сообщение")
+        textarea.form__textarea(name="text" :placeholder="formText")
       Button.form__btn._mobile.button--secondary(:disabled="success ? true : false")
-        | Отправить
+        | {{ formBtnText }}
   Button.form__btn.button--secondary(:disabled="success ? true : false")
-    | Отправить
+    | {{ formBtnText }}
 </template>
 
 <script>
@@ -63,7 +63,17 @@ export default {
         email: '',
         tel: ''
       },
-      success: false
+      success: false,
+      formName: 'Ваше имя',
+      formEmail: 'Ваш e-mail',
+      formTel: 'Ваш телефон',
+      formText: 'Сообщение',
+      formBtnText: 'Отправить',
+      pageLocale: this.$i18n.locale,
+      errorText: 'Обязательно для заполнения.',
+      errorTextEmail: 'Невалидный email.',
+      errorTextName: 'Не меньше двух знаков.',
+      errorTextPhone: 'Невалидный номер телефона.'
     }
   },
   validations: {
@@ -85,22 +95,25 @@ export default {
   computed: {
     nameError () {
       const errors = []
-      if (!this.$v.form.name.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.name.minLength) { errors.push('Не меньше двух знаков.') }
+      if (!this.$v.form.name.required) { errors.push(this.errorText) }
+      if (!this.$v.form.name.minLength) { errors.push(this.errorTextName) }
       return errors
     },
     emailErrors () {
       const errors = []
-      if (!this.$v.form.email.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.email.email) { errors.push('Невалидный email.') }
+      if (!this.$v.form.email.required) { errors.push(this.errorText) }
+      if (!this.$v.form.email.email) { errors.push(this.errorTextEmail) }
       return errors
     },
     telErrors () {
       const errors = []
-      if (!this.$v.form.tel.required) { errors.push('Обязательно для заполнения.') }
-      if (!this.$v.form.tel.phone) { errors.push('Невалидный номер телефона.') }
+      if (!this.$v.form.tel.required) { errors.push(this.errorText) }
+      if (!this.$v.form.tel.phone) { errors.push(this.errorTextPhone) }
       return errors
     }
+  },
+  created () {
+    this.setInfo()
   },
   methods: {
     async onSubmit () {
@@ -115,9 +128,21 @@ export default {
             this.tel = ''
           })
           .catch((err) => {
+            // eslint-disable-next-line no-console
             console.log(err)
           })
       }
+    },
+    setInfo () {
+      this.formName = this.pageLocale === 'en' ? 'Name' : 'Ваше имя'
+      this.formEmail = this.pageLocale === 'en' ? 'Email' : 'Ваш e-mail'
+      this.formTel = this.pageLocale === 'en' ? 'Phone' : 'Ваш телефон'
+      this.formText = this.pageLocale === 'en' ? 'Message' : 'Сообщение'
+      this.formBtnText = this.pageLocale === 'en' ? 'Send' : 'Отправить'
+      this.errorTextPhone = this.pageLocale === 'en' ? 'Invalid phone number' : 'Невалидный номер телефона'
+      this.errorTextName = this.pageLocale === 'en' ? 'At least two characters' : 'Не меньше двух знаков.'
+      this.errorTextEmail = this.pageLocale === 'en' ? 'Invalid Email' : 'Невалидный email.'
+      this.errorText = this.pageLocale === 'en' ? 'Required field' : 'Обязательно для заполнения.'
     }
   }
 }
